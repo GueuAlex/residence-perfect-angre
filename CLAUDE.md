@@ -6,7 +6,7 @@
 ## Fiche
 - Établissement : Perfect Résidence, appartements meublés (studio, chambre-salon, 3 pièces)
 - Type, ville : résidence meublée, zone d'Angré (Cocody, Abidjan, Côte d'Ivoire)
-- Statut : dev (piste A validée)
+- Statut : en ligne (démo à proposer au propriétaire)
 - Repo : https://github.com/GueuAlex/residence-perfect-angre
 - Démo : https://residence-perfect-angre.vercel.app
 - Brief : `brief/infos.md`
@@ -69,7 +69,25 @@ Trois pistes proposées dans `docs/maquettes/` (sommaire : `docs/maquettes/index
 ## Journal de session
 > Entrée la plus récente en haut. Chaque entrée indique la date, le travail fait, les décisions et la **prochaine étape précise**.
 
-### 2026-10-12
+### 2026-10-12 (2)
+- Fait :
+  - piste A « Mosaïque » validée par l'utilisateur ;
+  - site Next.js complet en une page : navigation avec menu mobile, hero et sa mosaïque, ruban, tarifs, appartements en défilement horizontal, confort, contact, pied de page ;
+  - image de partage générée au build (mosaïque + prix), favicon au toit doré ;
+  - vérifié en desktop (1440), en mobile (375) et en mode animations réduites ; lint et build OK ;
+  - Lighthouse mobile sur la démo : performance 92 à 95, accessibilité 100, bonnes pratiques 100 ; CLS 0 ; LCP 2,7 à 2,9 s en 4G simulée ;
+  - repo GitHub créé (token `public_repo` du trousseau) et démo déployée sur Vercel.
+- Décisions :
+  - entrée du hero en animations CSS (elles démarrent sans attendre le JavaScript, ce qui a fait passer le LCP de 3,3 à 2,7 s) ; GSAP garde le mélange de la mosaïque, les scrolls et les survols ;
+  - deux tokens ajoutés pour les petits textes en contraste AA : `brique` (#B8361F) sur fond clair, `soleil-clair` (#F6D27A) sur cobalt ;
+  - la mosaïque se met en pause quand l'onglet est caché ou hors de l'écran ;
+  - les vérifications visuelles passent par Chrome headless quand le panneau navigateur est masqué (sinon les captures sont vides).
+- Points ouverts :
+  - `vercel git connect` a échoué : il faut autoriser le repo dans l'application GitHub de Vercel (github.com/settings/installations → Vercel → « Only select repositories »). En attendant, redéployer avec `vercel --prod --yes` après chaque push ;
+  - LCP simulé encore un peu au-dessus de 2,5 s, à cause du temps d'exécution JavaScript sur mobile bridé.
+- Prochaine étape : l'utilisateur envoie le lien au propriétaire. Ensuite, intégrer les infos manquantes (zones d'Angré, grille de prix par type et par durée, capacité, logo HD, photos HD) dans `src/content/site.ts` et remplacer les photos de `public/images/`.
+
+### 2026-10-12 (1)
 - Fait :
   - dossier créé, logo et 4 photos rangés dans `brief/sources/` ;
   - recherches en ligne : TikTok @peferctresi, fiche Google Maps, plateformes de location ;
