@@ -30,10 +30,6 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="fr" className={`${unbounded.variable} ${onest.variable}`}>
       <body>
-        {/* Sans JavaScript, le hero reste visible */}
-        <noscript>
-          <style>{".hero-contenu,.mosaique{visibility:visible!important}"}</style>
-        </noscript>
         <LenisProvider>{children}</LenisProvider>
       </body>
     </html>

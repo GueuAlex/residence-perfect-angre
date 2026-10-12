@@ -40,7 +40,7 @@ export function Tarifs() {
     <section ref={ref} id="tarifs" className="pt-[clamp(96px,12vw,180px)]">
       <div className="gouttiere mx-auto mb-[clamp(40px,5vw,72px)] flex max-w-[1480px] flex-wrap items-end justify-between gap-6">
         <Revele>
-          <p className="eyebrow text-corail">{tarifs.eyebrow}</p>
+          <p className="eyebrow text-brique">{tarifs.eyebrow}</p>
           <h2 className="titre-section mt-3.5 max-w-[15ch] text-[clamp(30px,4.4vw,72px)]">{tarifs.titre}</h2>
         </Revele>
         <p className="max-w-[340px]">{tarifs.intro}</p>
@@ -57,7 +57,7 @@ export function Tarifs() {
             {compositions[i]}
           </div>
           <div className="gouttiere py-10">
-            <p className={`eyebrow ${i === 0 ? "" : "text-soleil"}`}>{f.label}</p>
+            <p className={`eyebrow ${i === 0 ? "" : "text-soleil-clair"}`}>{f.label}</p>
             <p className="titre-section my-3 whitespace-nowrap text-[clamp(52px,8.2vw,150px)] font-bold leading-[0.9] tracking-[-0.05em]">
               <Compteur valeur={f.prix} />
               <small className="ml-[0.4em] align-top text-[0.16em] font-semibold tracking-[0.04em]">{tarifs.devise}</small>

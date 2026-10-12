@@ -120,7 +120,7 @@ export function Appartements() {
     >
       <div className="appart-rail gouttiere flex h-svh min-h-[580px] w-max items-center gap-[clamp(16px,2vw,28px)] pb-8 pt-[84px]">
         <div className="w-[min(80vw,460px)] shrink-0">
-          <p className="eyebrow text-corail">{appartements.eyebrow}</p>
+          <p className="eyebrow text-brique">{appartements.eyebrow}</p>
           <h2 id="titre-appartements" className="titre-section mb-5 mt-3.5 text-[clamp(30px,4vw,60px)]">
             {appartements.titre}
           </h2>

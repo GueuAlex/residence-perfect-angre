@@ -58,7 +58,7 @@ export function Contact() {
       </svg>
 
       <div className="relative max-w-[1100px]">
-        <p className="contact-apparition eyebrow text-soleil">{reservation.eyebrow}</p>
+        <p className="contact-apparition eyebrow text-soleil-clair">{reservation.eyebrow}</p>
         <h2 className="contact-apparition titre-section mb-6 mt-4 text-[clamp(40px,7.4vw,128px)] font-bold leading-[0.95] tracking-[-0.045em]">
           {reservation.titre[0]} <span className="text-soleil">{reservation.titre[1]}</span>
         </h2>

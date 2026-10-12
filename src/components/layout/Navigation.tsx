@@ -50,7 +50,7 @@ export function Navigation() {
         aria-label="Navigation principale"
         className="gouttiere fixed inset-x-0 top-0 z-50 flex items-center justify-between gap-4 border-b-2 border-encre bg-creme py-3 md:py-3.5"
       >
-        <a href="#accueil" aria-label="Perfect Résidence, accueil">
+        <a href="#accueil">
           <Logo taille="text-base md:text-lg" />
         </a>
         <ul className="hidden gap-7 text-sm font-medium md:flex">

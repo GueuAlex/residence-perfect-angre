@@ -1,13 +1,16 @@
 "use client";
 
 import Image from "next/image";
-import { useRef } from "react";
+import { useRef, type CSSProperties } from "react";
 import { Forme } from "@/components/ui/Forme";
 import { Rayures } from "@/components/ui/Rayures";
 import { Toit } from "@/components/ui/Toit";
 import { fonds } from "@/components/ui/couleurs";
 import type { Tuile } from "@/content/site";
 import { AVEC_ANIMATIONS, Flip, gsap, SURVOL, useGSAP } from "@/lib/gsap";
+
+// Ordre d'apparition des tuiles (melange fixe pour un effet aleatoire)
+const ORDRE_ENTREE = [3, 7, 0, 5, 2, 8, 1, 6, 4];
 
 // Taille d'une tuile : un tiers de la mosaique
 const TAILLES = "(min-width: 768px) 220px, 34vw";
@@ -77,19 +80,10 @@ export function Mosaique({ tuiles, className = "" }: Props) {
       const elements = gsap.utils.toArray<HTMLElement>(".tuile", grille);
       // L'ordre CSS sert a melanger sans toucher au DOM gere par React
       elements.forEach((t, i) => (t.style.order = String(i)));
-      gsap.set(grille, { autoAlpha: 1 });
 
       const mm = gsap.matchMedia();
 
       mm.add(AVEC_ANIMATIONS, () => {
-        gsap.from(elements, {
-          scale: 0,
-          rotation: -90,
-          duration: 1.1,
-          ease: "back.out(1.5)",
-          stagger: { each: 0.07, from: "random" },
-        });
-
         let visible = true;
         const observateur = new IntersectionObserver(([e]) => (visible = e.isIntersecting));
         observateur.observe(grille);
@@ -135,9 +129,13 @@ export function Mosaique({ tuiles, className = "" }: Props) {
   );
 
   return (
-    <div ref={ref} className={`mosaique invisible grid aspect-square grid-cols-3 grid-rows-3 gap-1.5 md:gap-2.5 ${className}`}>
+    <div ref={ref} className={`mosaique grid aspect-square grid-cols-3 grid-rows-3 gap-1.5 md:gap-2.5 ${className}`}>
       {tuiles.map((tuile, i) => (
-        <div key={i} className={`tuile relative grid place-items-center overflow-hidden ${fonds[tuile.fond]}`}>
+        <div
+          key={i}
+          style={{ "--i": ORDRE_ENTREE[i] } as CSSProperties}
+          className={`tuile entree-tuile relative grid place-items-center overflow-hidden ${fonds[tuile.fond]}`}
+        >
           <ContenuTuile tuile={tuile} />
         </div>
       ))}

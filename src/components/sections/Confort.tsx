@@ -28,7 +28,7 @@ export function Confort() {
   return (
     <section ref={ref} id="confort" className="gouttiere mx-auto max-w-[1480px] py-[clamp(96px,12vw,180px)]">
       <Revele>
-        <p className="eyebrow text-corail">{confort.eyebrow}</p>
+        <p className="eyebrow text-brique">{confort.eyebrow}</p>
         <h2 className="titre-section mb-[clamp(36px,5vw,64px)] mt-3.5 max-w-[16ch] text-[clamp(30px,4.4vw,72px)]">{confort.titre}</h2>
       </Revele>
 
