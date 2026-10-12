@@ -31,7 +31,7 @@ export function Hero() {
           <span style={{ "--i": 2 } as CSSProperties} className="entree-ligne block text-corail">{hero.titre[2]}</span>
         </h1>
 
-        <p style={{ "--i": 1 } as CSSProperties} className="entree-fondu max-w-[470px] text-base md:text-[clamp(16px,1.3vw,19px)]">{hero.sousTitre}</p>
+        <p style={{ "--i": 1 } as CSSProperties} className="entree-glisse max-w-[470px] text-base md:text-[clamp(16px,1.3vw,19px)]">{hero.sousTitre}</p>
 
         <div style={{ "--i": 2 } as CSSProperties} className="entree-fondu mt-6 flex flex-wrap gap-3 md:mt-8">
           <Magnetique>

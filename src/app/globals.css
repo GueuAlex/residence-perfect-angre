@@ -94,6 +94,11 @@
     animation: entree-fondu 0.9s var(--ease-sortie) backwards;
     animation-delay: calc(0.25s + var(--i, 0) * 0.07s);
   }
+  /* Sans fondu : le paragraphe du hero (LCP) s'affiche des la premiere image */
+  .entree-glisse {
+    animation: entree-glisse 0.9s var(--ease-sortie) backwards;
+    animation-delay: calc(0.25s + var(--i, 0) * 0.07s);
+  }
   .o-soleil::after {
     animation: entree-soleil 1.2s cubic-bezier(0.34, 1.56, 0.64, 1) 0.6s backwards;
   }
@@ -111,6 +116,11 @@
 @keyframes entree-fondu {
   from {
     opacity: 0;
+    translate: 0 20px;
+  }
+}
+@keyframes entree-glisse {
+  from {
     translate: 0 20px;
   }
 }
