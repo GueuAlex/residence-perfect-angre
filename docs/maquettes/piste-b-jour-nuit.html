@@ -1,0 +1,699 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Perfect Résidence · Piste B · Jour &amp; nuit</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Figtree:wght@400..700&display=swap" rel="stylesheet">
+<style>
+  /* Tokens du theme - piste B */
+  :root {
+    --sable: #f3eadb;
+    --lin: #e6d3b3;
+    --creme: #fbf6ee;
+    --miel: #ebb329;
+    --miel-clair: #f6d27a;
+    --sauge: #7f8f63;
+    --terracotta: #c0623a;
+    --nuit: #191c38;
+    --nuit-2: #2a2f5c;
+    --encre: #2a231b;
+
+    --f-display: "Instrument Serif", Georgia, serif;
+    --f-texte: "Figtree", system-ui, sans-serif;
+
+    --gouttiere: clamp(16px, 4vw, 56px);
+    --ease-doux: cubic-bezier(.22, 1, .36, 1);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html.lenis, html.lenis body { height: auto; }
+  .lenis.lenis-smooth { scroll-behavior: auto !important; }
+  body {
+    background: var(--sable); color: var(--encre);
+    font-family: var(--f-texte); font-size: 16px; line-height: 1.6;
+    -webkit-font-smoothing: antialiased; overflow-x: hidden;
+  }
+  a { color: inherit; text-decoration: none; }
+  img { display: block; max-width: 100%; }
+  em { font-style: italic; }
+  .eyebrow { font-size: 12px; font-weight: 600; letter-spacing: .22em; text-transform: uppercase; }
+
+  /* Navigation flottante */
+  .nav {
+    position: fixed; top: 12px; left: var(--gouttiere); right: var(--gouttiere); z-index: 50;
+    display: flex; align-items: center; justify-content: space-between; gap: 16px;
+    padding: 8px 8px 8px 18px; border-radius: 999px;
+    background: var(--creme); color: var(--encre); box-shadow: 0 10px 30px rgba(25, 28, 56, .12);
+  }
+  .logo { display: inline-flex; align-items: center; gap: 10px; }
+  .logo svg { width: 44px; height: auto; }
+  .logo__txt { display: flex; flex-direction: column; line-height: 1; }
+  .logo__nom { font-family: var(--f-display); font-size: 24px; letter-spacing: .06em; text-transform: uppercase; }
+  .logo__sous { font-size: 9px; font-weight: 600; letter-spacing: .34em; text-transform: uppercase; margin-top: 3px; opacity: .7; }
+  .nav__liens { display: flex; gap: 26px; font-size: 14px; font-weight: 500; }
+  .nav__liens a { position: relative; }
+  .nav__liens a::after { content: ""; position: absolute; left: 0; right: 0; bottom: -4px; height: 1.5px; background: currentColor; transform: scaleX(0); transform-origin: right; transition: transform .5s var(--ease-doux); }
+  .nav__liens a:hover::after { transform: scaleX(1); transform-origin: left; }
+  .nav__cta { display: inline-flex; align-items: center; gap: 8px; padding: 12px 18px; border-radius: 999px; background: var(--encre); color: var(--creme); font-size: 14px; font-weight: 600; transition: background .4s var(--ease-doux); }
+  .nav__cta:hover { background: var(--terracotta); }
+  .nav__cta svg { width: 16px; height: 16px; }
+  @media (max-width: 860px) { .nav__liens { display: none; } .logo__nom { font-size: 20px; } }
+
+  /* Hero : le soleil se couche, la lune se leve */
+  .hero {
+    --h-fond: var(--sable); --h-texte: var(--encre); --h-doux: rgba(42, 35, 27, .74); --h-accent: var(--terracotta);
+    position: relative; height: 100svh; min-height: 640px; overflow: hidden;
+    background: var(--h-fond); color: var(--h-texte);
+  }
+  .hero__grille {
+    height: 100%; max-width: 1440px; margin: 0 auto;
+    display: grid; grid-template-columns: 1.05fr .95fr; align-items: center; gap: clamp(24px, 4vw, 64px);
+    padding: 104px var(--gouttiere) 56px;
+  }
+  .hero__kicker { font-size: 13px; font-weight: 600; letter-spacing: .2em; text-transform: uppercase; color: var(--h-doux); }
+  .hero__titre {
+    font-family: var(--f-display); font-weight: 400;
+    font-size: clamp(44px, 6.4vw, 108px); line-height: .96; letter-spacing: -.015em;
+    margin: 18px 0 22px; max-width: 11ch;
+  }
+  .hero__titre em { color: var(--h-accent); }
+  .hero__sous { font-size: clamp(16px, 1.35vw, 19px); max-width: 440px; color: var(--h-doux); }
+  .hero__ctas { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 30px; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 10px; padding: 16px 24px; border-radius: 999px;
+    font-weight: 600; font-size: 15px; transition: transform .5s var(--ease-doux), background .4s, color .4s;
+  }
+  .btn svg { width: 18px; height: 18px; }
+  .btn:hover { transform: translateY(-2px); }
+  .btn--plein { background: var(--h-texte); color: var(--h-fond); }
+  .hero .btn { transition: transform .5s var(--ease-doux); }
+  .btn--trait { border: 1.5px solid currentColor; }
+  .hero__indice { position: absolute; left: 50%; transform: translateX(-50%); bottom: 22px; white-space: nowrap; display: flex; align-items: center; gap: 12px; font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--h-doux); }
+  .hero__indice span { width: 44px; height: 1.5px; background: currentColor; transform-origin: left; animation: indice 2.4s var(--ease-doux) infinite; }
+  @keyframes indice { 0% { transform: scaleX(0); } 60% { transform: scaleX(1); } 100% { transform: scaleX(1); opacity: 0; } }
+
+  .scene { position: relative; justify-self: center; height: min(72svh, 640px); aspect-ratio: 400 / 520; }
+  .scene__ciel { width: 100%; height: 100%; display: block; overflow: visible; }
+  .photo-arche {
+    position: absolute; left: -16%; bottom: -3%; width: 38%; aspect-ratio: 3 / 4;
+    border-radius: 999px 999px 20px 20px; overflow: hidden; border: 6px solid var(--creme);
+    box-shadow: 0 24px 50px rgba(25, 28, 56, .25);
+  }
+  .photo-arche img { width: 100%; height: 100%; object-fit: cover; object-position: 40% 50%; }
+  .photo-arche__nuit { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(25, 28, 56, .45), rgba(235, 179, 41, .18)); opacity: 0; }
+  .horloge { position: absolute; right: -5%; top: 20%; width: 18%; filter: drop-shadow(0 10px 20px rgba(25, 28, 56, .2)); }
+  .prix {
+    position: absolute; right: -10%; bottom: 12%; height: 64px; overflow: hidden;
+    border-radius: 999px; background: var(--encre); color: var(--creme);
+    box-shadow: 0 16px 40px rgba(25, 28, 56, .3);
+  }
+  .prix__piste { display: flex; flex-direction: column; }
+  .prix__etat { height: 64px; display: flex; align-items: center; gap: 12px; padding: 0 22px 0 10px; white-space: nowrap; }
+  .prix__etat i { width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center; background: var(--miel); color: var(--encre); }
+  .prix__etat i svg { width: 22px; height: 22px; }
+  .prix__etat span { display: flex; flex-direction: column; line-height: 1.1; font-size: 11px; letter-spacing: .14em; text-transform: uppercase; opacity: .75; }
+  .prix__etat b { font-family: var(--f-display); font-weight: 400; font-size: 26px; letter-spacing: 0; text-transform: none; opacity: 1; color: var(--creme); }
+  .etoile { transform-box: fill-box; transform-origin: center; animation: scintille 2.8s ease-in-out infinite; }
+  @keyframes scintille { 50% { transform: scale(.4); } }
+
+  @media (max-width: 860px) {
+    .hero { min-height: 600px; }
+    .hero__grille { grid-template-columns: 1fr; align-content: start; gap: 18px; padding-top: 86px; padding-bottom: 24px; }
+    .scene { order: -1; height: 41svh; }
+    .photo-arche { left: -19%; width: 40%; border-width: 4px; }
+    .horloge { right: -12%; top: 14%; width: 22%; }
+    .prix { right: -16%; bottom: 8%; height: 52px; }
+    .prix__etat { height: 52px; padding: 0 16px 0 6px; gap: 8px; }
+    .prix__etat i { width: 38px; height: 38px; }
+    .prix__etat b { font-size: 21px; }
+    .hero__titre { font-size: clamp(38px, 10.6vw, 64px); margin: 10px 0 12px; max-width: none; }
+    .hero__kicker { font-size: 11px; }
+    .hero__sous { font-size: 15px; }
+    .hero__ctas { margin-top: 18px; }
+    .btn { padding: 14px 20px; font-size: 14px; }
+    .hero__indice { display: none; }
+    .cache-mobile { display: none; }
+  }
+
+  /* Soiree : la nuit a la residence */
+  .soir { position: relative; background: var(--nuit); color: var(--sable); padding: clamp(96px, 14vw, 200px) var(--gouttiere) clamp(80px, 12vw, 160px); overflow: hidden; }
+  .soir .eyebrow { color: var(--miel); }
+  .soir__titre { font-family: var(--f-display); font-weight: 400; font-size: clamp(40px, 6vw, 96px); line-height: 1; margin-top: 16px; }
+  .soir__titre em { color: var(--miel); }
+  .soir__phrase {
+    margin-top: clamp(40px, 6vw, 80px); max-width: 1180px;
+    font-family: var(--f-display); font-size: clamp(30px, 4.3vw, 66px); line-height: 1.18; color: rgba(243, 234, 219, .92);
+  }
+  .soir__phrase b {
+    font-weight: 400; font-style: italic; color: var(--creme);
+    background: linear-gradient(var(--miel), var(--miel)) no-repeat 0 92% / 100% 3px;
+  }
+  .ico { display: inline-block; width: .95em; height: .95em; vertical-align: -.12em; margin: 0 .08em; }
+  .ico svg { width: 100%; height: 100%; overflow: visible; }
+  .ico * { fill: none; stroke: var(--miel); stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+  .soir__puces { display: flex; flex-wrap: wrap; gap: 10px; margin-top: clamp(40px, 5vw, 64px); }
+  .soir__puces li { list-style: none; padding: 10px 16px; border-radius: 999px; border: 1px solid rgba(243, 234, 219, .28); font-size: 14px; }
+  .soir__puces li small { opacity: .6; }
+  .soir__deco { position: absolute; pointer-events: none; }
+  .soir__lune { right: var(--gouttiere); top: 64px; width: clamp(64px, 9vw, 130px); }
+
+  /* Aube : retour du jour */
+  .aube {
+    --a-accent: var(--miel);
+    position: relative; min-height: 90svh; overflow: hidden;
+    display: grid; place-items: center; text-align: center;
+    background: var(--nuit); color: var(--sable); padding: 120px var(--gouttiere) 160px;
+  }
+  .aube__texte { position: relative; z-index: 2; }
+  .aube h2 { margin: 0 auto; font-family: var(--f-display); font-weight: 400; font-size: clamp(40px, 6.4vw, 104px); line-height: .98; max-width: 12ch; }
+  .aube h2 em { color: var(--a-accent); }
+  .aube p { margin: 20px auto 0; max-width: 420px; opacity: .8; }
+  .aube__soleil { position: absolute; left: 50%; bottom: -1px; width: min(110vw, 920px); transform: translateX(-50%); z-index: 1; }
+  .aube__soleil svg { display: block; width: 100%; height: auto; overflow: visible; }
+
+  /* Appartements */
+  .apparts { padding: clamp(96px, 12vw, 180px) var(--gouttiere); max-width: 1440px; margin: 0 auto; }
+  .apparts .eyebrow { color: var(--terracotta); }
+  .apparts h2 { font-family: var(--f-display); font-weight: 400; font-size: clamp(40px, 5.6vw, 92px); line-height: 1; margin-top: 14px; max-width: 13ch; }
+  .apparts h2 em { color: var(--terracotta); }
+  .apparts__grille { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(40px, 6vw, 96px); align-items: center; margin-top: clamp(40px, 6vw, 80px); }
+  .formats { list-style: none; }
+  .format { display: grid; grid-template-columns: 56px 1fr; gap: 6px 16px; padding: 26px 0; border-top: 1px solid rgba(42, 35, 27, .16); }
+  .format:last-child { border-bottom: 1px solid rgba(42, 35, 27, .16); }
+  .format__n { grid-row: span 2; width: 48px; height: 48px; border-radius: 50%; display: grid; place-items: center; background: var(--lin); font-weight: 600; font-size: 14px; transition: background .5s var(--ease-doux), transform .5s var(--ease-doux); }
+  .format h3 { font-family: var(--f-display); font-weight: 400; font-size: clamp(30px, 3vw, 44px); line-height: 1; }
+  .format p { color: rgba(42, 35, 27, .72); max-width: 380px; }
+  @media (hover: hover) { .format:hover .format__n { background: var(--miel); transform: rotate(-12deg) scale(1.08); } }
+
+  .collage { position: relative; aspect-ratio: 1 / 1.05; }
+  .blob { position: absolute; border-radius: 42% 58% 63% 37% / 41% 44% 56% 59%; animation: blob 14s ease-in-out infinite alternate; }
+  .blob--miel { width: 58%; aspect-ratio: 1; right: 0; top: 4%; background: var(--miel); }
+  .blob--sauge { width: 46%; aspect-ratio: 1; left: 2%; bottom: 0; background: var(--sauge); animation-duration: 18s; animation-direction: alternate-reverse; }
+  @keyframes blob {
+    50% { border-radius: 63% 37% 41% 59% / 56% 62% 38% 44%; transform: rotate(14deg); }
+    100% { border-radius: 38% 62% 52% 48% / 60% 35% 65% 40%; transform: rotate(-8deg); }
+  }
+  .cadre { position: absolute; overflow: hidden; border: 6px solid var(--creme); box-shadow: 0 24px 50px rgba(42, 35, 27, .18); }
+  .cadre img { width: 100%; height: 100%; object-fit: cover; }
+  .cadre--arche { width: 50%; aspect-ratio: 3 / 4.2; left: 22%; top: 0; border-radius: 999px 999px 24px 24px; }
+  .cadre--arche img { filter: saturate(.72) hue-rotate(-6deg) contrast(1.05); }
+  .cadre--rond { width: 36%; aspect-ratio: 1; right: 2%; bottom: 10%; border-radius: 50%; }
+  .cadre--pilule { width: 26%; aspect-ratio: 1 / 1.6; left: 0; top: 34%; border-radius: 999px; }
+  .cadre--pilule img { object-position: 78% 18%; }
+  .feuille { position: absolute; width: 16%; color: var(--sauge); }
+  .collage__note { position: absolute; left: 24%; bottom: -8px; font-family: var(--f-display); font-style: italic; font-size: 18px; color: rgba(42, 35, 27, .6); }
+  @media (max-width: 860px) {
+    .apparts__grille { grid-template-columns: 1fr; }
+    .collage { order: -1; width: 100%; max-width: 480px; margin: 0 auto; }
+  }
+
+  /* Tarifs */
+  .tarifs { position: relative; padding: clamp(80px, 10vw, 160px) var(--gouttiere); text-align: center; background: var(--creme); overflow: hidden; }
+  .tarifs .eyebrow { color: var(--terracotta); }
+  .tarifs h2 { font-family: var(--f-display); font-weight: 400; font-size: clamp(40px, 5.6vw, 92px); line-height: 1; margin-top: 14px; }
+  .tarifs h2 em { color: var(--terracotta); }
+  .duo { display: flex; justify-content: center; align-items: center; gap: clamp(16px, 4vw, 64px); margin-top: clamp(48px, 6vw, 80px); flex-wrap: wrap; }
+  .astre { position: relative; width: clamp(270px, 30vw, 420px); aspect-ratio: 1; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 14%; }
+  .astre--soleil { background: var(--miel); color: var(--encre); }
+  .astre--lune { background: var(--nuit); color: var(--sable); }
+  .astre__label { font-size: 12px; font-weight: 600; letter-spacing: .22em; text-transform: uppercase; }
+  .astre__prix { font-family: var(--f-display); font-size: clamp(52px, 5.4vw, 84px); line-height: 1; margin: 10px 0 4px; }
+  .astre__prix small { font-family: var(--f-texte); font-size: 14px; font-weight: 600; letter-spacing: .08em; margin-left: 4px; }
+  .astre__txt { font-size: 15px; opacity: .8; max-width: 220px; }
+  .astre__rayons { position: absolute; inset: -12%; pointer-events: none; animation: tourne 40s linear infinite; }
+  .astre__rayons line { stroke: var(--miel); stroke-width: 3; stroke-linecap: round; }
+  .astre__orbite { position: absolute; inset: -9%; border: 1.5px dashed rgba(25, 28, 56, .35); border-radius: 50%; pointer-events: none; animation: tourne 60s linear infinite reverse; }
+  .astre__orbite::after { content: ""; position: absolute; top: 12%; left: 12%; width: 12px; height: 12px; border-radius: 50%; background: var(--terracotta); }
+  @keyframes tourne { to { transform: rotate(360deg); } }
+  .tarifs__long { display: inline-flex; align-items: center; gap: 12px; margin-top: clamp(48px, 6vw, 72px); padding: 14px 22px; border-radius: 999px; background: var(--sable); font-size: 16px; }
+  .tarifs__long b { font-weight: 600; }
+  .tarifs__long i { width: 10px; height: 10px; border-radius: 50%; background: var(--sauge); }
+
+  /* Contact */
+  .contact { position: relative; background: var(--terracotta); color: var(--creme); padding: clamp(96px, 12vw, 180px) var(--gouttiere); overflow: hidden; }
+  .contact__grille { max-width: 1280px; margin: 0 auto; display: grid; grid-template-columns: 1.3fr .7fr; gap: 40px; align-items: center; }
+  .contact .eyebrow { color: var(--lin); }
+  .contact h2 { font-family: var(--f-display); font-weight: 400; font-size: clamp(44px, 7vw, 120px); line-height: .95; margin-top: 14px; }
+  .contact h2 em { color: var(--miel-clair); }
+  .contact p { margin-top: 20px; max-width: 460px; font-size: 17px; opacity: .9; }
+  .contact .hero__ctas { margin-top: 34px; }
+  .contact .btn--plein { background: var(--creme); color: var(--encre); }
+  .contact .btn--plein:hover { background: var(--miel); }
+  .contact__lieu { display: inline-flex; align-items: center; gap: 8px; margin-top: 28px; font-size: 14px; letter-spacing: .08em; }
+  .contact__lieu svg { width: 18px; height: 18px; }
+  .cle { justify-self: center; width: min(100%, 300px); transform-origin: 50% 6%; animation: balance 4s ease-in-out infinite; }
+  .cle svg { width: 100%; height: auto; overflow: visible; }
+  @keyframes balance { 0%, 100% { transform: rotate(-7deg); } 50% { transform: rotate(7deg); } }
+  @media (max-width: 860px) { .contact__grille { grid-template-columns: 1fr; } .cle { width: 170px; order: -1; } }
+
+  /* Planche DA */
+  .planche { background: var(--creme); padding: clamp(64px, 10vw, 140px) var(--gouttiere); border-top: 1px solid rgba(42, 35, 27, .1); }
+  .planche .eyebrow { color: var(--terracotta); }
+  .planche h3 { font-family: var(--f-display); font-weight: 400; font-size: clamp(32px, 4vw, 56px); margin: 12px 0 36px; }
+  .nuancier { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 12px; }
+  .pastille { overflow: hidden; border-radius: 18px; background: #fff; border: 1px solid rgba(42, 35, 27, .08); }
+  .pastille__c { height: 86px; }
+  .pastille__t { padding: 10px 12px; font-size: 12px; line-height: 1.4; }
+  .pastille__t b { display: block; font-weight: 600; }
+  .typos { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin-top: 32px; }
+  .typo, .signature { background: #fff; padding: 28px; border-radius: 22px; border: 1px solid rgba(42, 35, 27, .08); }
+  .typo__ex { font-size: clamp(40px, 8vw, 60px); line-height: 1; margin: 10px 0; }
+  .signature { margin-top: 16px; max-width: 980px; }
+  .signature p + p { margin-top: 10px; }
+  @media (max-width: 720px) { .typos { grid-template-columns: minmax(0, 1fr); } }
+
+  .pied { background: var(--nuit); color: rgba(243, 234, 219, .75); padding: 64px var(--gouttiere) 96px; display: flex; justify-content: space-between; gap: 24px; flex-wrap: wrap; align-items: end; }
+  .pied .logo { color: var(--sable); }
+  .pied .logo svg { width: 64px; }
+  .pied .logo__nom { font-size: 34px; }
+  .pied__liens { display: flex; gap: 22px; flex-wrap: wrap; font-size: 14px; }
+  .pied__digifaz { width: 100%; padding-top: 24px; border-top: 1px solid rgba(243, 234, 219, .14); font-size: 12px; letter-spacing: .08em; opacity: .7; }
+
+  .badge {
+    position: fixed; left: 12px; bottom: 12px; z-index: 60; padding: 8px 14px; border-radius: 999px;
+    font-size: 11px; letter-spacing: .04em; background: var(--encre); color: var(--miel);
+  }
+  .badge a { text-decoration: underline; text-underline-offset: 2px; color: var(--creme); margin-left: 6px; }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Pictogramme du toit, repris du logo -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="toit" viewBox="0 0 120 56">
+    <path d="M7 50 L46 11 L80 45" fill="none" stroke="#ebb329" stroke-width="7" stroke-linecap="square"/>
+    <path d="M62 48.5 H116" stroke="#ebb329" stroke-width="7"/>
+    <g fill="#ebb329"><rect x="39" y="22" width="6" height="6"/><rect x="47" y="22" width="6" height="6"/><rect x="39" y="30" width="6" height="6"/><rect x="47" y="30" width="6" height="6"/></g>
+  </symbol>
+  <symbol id="i-bulle" viewBox="0 0 24 24"><path d="M4 18.5 5.2 15A8 8 0 1 1 8.6 18.6Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M9 10.5c.5 1.8 2 3.3 3.8 3.9" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+  <symbol id="i-tel" viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></symbol>
+  <symbol id="i-soleil" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4.5" fill="currentColor"/><g stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8"/></g></symbol>
+  <symbol id="i-lune" viewBox="0 0 24 24"><path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a7 7 0 0 0 10.5 10.5Z" fill="currentColor"/></symbol>
+  <symbol id="i-lieu" viewBox="0 0 24 24"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21Z" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="9.5" r="2.5" fill="none" stroke="currentColor" stroke-width="1.8"/></symbol>
+</svg>
+
+<nav class="nav">
+  <a href="#" class="logo" aria-label="Perfect Résidence, accueil">
+    <svg viewBox="0 0 120 56" aria-hidden="true"><use href="#toit"/></svg>
+    <span class="logo__txt"><span class="logo__nom">Perfect</span><span class="logo__sous">Résidence</span></span>
+  </a>
+  <div class="nav__liens"><a href="#soir">Équipements</a><a href="#appartements">Appartements</a><a href="#tarifs">Tarifs</a><a href="#contact">Contact</a></div>
+  <a class="nav__cta" href="https://wa.me/2250714370032"><svg aria-hidden="true"><use href="#i-bulle"/></svg>Réserver</a>
+</nav>
+
+<header class="hero">
+  <div class="hero__grille">
+    <div class="hero__texte">
+      <p class="hero__kicker">Appartements meublés · Angré, Cocody</p>
+      <h1 class="hero__titre">Votre cocon à Angré, <em>de jour</em> comme <em>de nuit</em>.</h1>
+      <p class="hero__sous">Studios, chambres-salons et 3 pièces meublés, prêts à vivre. Canal+, Netflix, sécurité garantie : il ne manque que vous.</p>
+      <div class="hero__ctas">
+        <a class="btn btn--plein" href="https://wa.me/2250714370032"><svg aria-hidden="true"><use href="#i-bulle"/></svg><span>Réserver<span class="cache-mobile"> sur WhatsApp</span></span></a>
+        <a class="btn btn--trait" href="tel:+2250709781306"><svg aria-hidden="true"><use href="#i-tel"/></svg>Appeler</a>
+      </div>
+    </div>
+
+    <div class="scene">
+      <svg class="scene__ciel" viewBox="0 0 400 520" role="img" aria-label="Illustration : le soleil se couche sur Angré, la lune se lève et les fenêtres s'allument">
+        <defs>
+          <clipPath id="arche"><path d="M0 520V200A200 200 0 0 1 400 200V520Z"/></clipPath>
+          <linearGradient id="g-jour" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#bcdcdf"/><stop offset="1" stop-color="#f6e8cd"/></linearGradient>
+          <linearGradient id="g-soir" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#d9714a"/><stop offset=".55" stop-color="#f0a466"/><stop offset="1" stop-color="#f8d79a"/></linearGradient>
+          <linearGradient id="g-nuit" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#11132b"/><stop offset="1" stop-color="#2f3567"/></linearGradient>
+          <radialGradient id="halo"><stop offset="0" stop-color="#ffd977" stop-opacity=".7"/><stop offset="1" stop-color="#ffd977" stop-opacity="0"/></radialGradient>
+          <radialGradient id="halo-lune"><stop offset="0" stop-color="#f6eedc" stop-opacity=".45"/><stop offset="1" stop-color="#f6eedc" stop-opacity="0"/></radialGradient>
+          <mask id="croissant" maskUnits="userSpaceOnUse" x="-40" y="-40" width="80" height="80"><circle r="30" fill="#fff"/><circle cx="13" cy="-10" r="26" fill="#000"/></mask>
+        </defs>
+        <g clip-path="url(#arche)">
+          <rect width="400" height="520" fill="url(#g-jour)"/>
+          <rect id="ciel-soir" width="400" height="520" fill="url(#g-soir)" opacity="0"/>
+          <rect id="ciel-nuit" width="400" height="520" fill="url(#g-nuit)" opacity="0"/>
+          <g id="etoiles"></g>
+          <g id="lune"><circle r="62" fill="url(#halo-lune)"/><circle r="30" fill="#f6eedc" mask="url(#croissant)"/></g>
+          <g id="soleil-intro"><g id="soleil"><circle r="84" fill="url(#halo)"/><circle r="42" fill="#ebb329"/></g></g>
+          <g class="nuages">
+            <g class="nuage" fill="#fff" opacity=".85"><rect x="40" y="128" width="96" height="22" rx="11"/><circle cx="74" cy="126" r="18"/><circle cx="100" cy="122" r="14"/></g>
+            <g class="nuage" fill="#fff" opacity=".7"><rect x="250" y="236" width="80" height="18" rx="9"/><circle cx="280" cy="234" r="14"/><circle cx="302" cy="232" r="10"/></g>
+          </g>
+          <g id="ville">
+            <rect class="bat" x="-5" y="392" width="72" height="140"/>
+            <rect class="bat bat--b" x="58" y="338" width="54" height="190"/>
+            <rect class="bat" x="122" y="372" width="156" height="160"/>
+            <rect class="bat bat--b" x="286" y="322" width="56" height="210"/>
+            <rect class="bat" x="336" y="384" width="72" height="150"/>
+            <rect class="bat" x="0" y="508" width="400" height="12"/>
+          </g>
+          <g id="fenetres"></g>
+          <g class="toit-scene" fill="none" stroke="#ebb329" stroke-width="8">
+            <path d="M112 380 L200 300 L262 358" stroke-linecap="square"/>
+            <path d="M226 364 H298"/>
+            <g fill="#ebb329" stroke="none"><rect x="190" y="320" width="8" height="8"/><rect x="201" y="320" width="8" height="8"/><rect x="190" y="331" width="8" height="8"/><rect x="201" y="331" width="8" height="8"/></g>
+          </g>
+          <g class="palmier" transform="translate(406 6) scale(-1 1)">
+            <path class="palmier__tronc" d="M40 520 C44 470 50 420 68 372" fill="none" stroke-width="7" stroke-linecap="round"/>
+            <g class="palmier__palmes">
+              <path d="M68 372 C40 350 18 356 4 378 C28 366 48 366 68 372Z"/>
+              <path d="M68 372 C58 340 40 326 20 328 C40 340 54 352 68 372Z"/>
+              <path d="M68 372 C82 340 106 330 126 338 C104 346 86 356 68 372Z"/>
+              <path d="M68 372 C98 362 122 372 132 394 C112 380 90 376 68 372Z"/>
+              <path d="M68 372 C70 344 64 324 52 312 C60 334 64 352 68 372Z"/>
+            </g>
+          </g>
+        </g>
+        <path d="M-14 520V200A214 214 0 0 1 414 200V520" fill="none" stroke="#ebb329" stroke-width="1.5" stroke-dasharray="2 7" stroke-linecap="round"/>
+      </svg>
+
+      <figure class="photo-arche">
+        <img src="assets/chambre-plaid-vert.jpg" alt="Chambre de Perfect Résidence : lit au plaid vert, télévision murale et étagère en bois">
+        <span class="photo-arche__nuit"></span>
+      </figure>
+
+      <svg class="horloge" viewBox="0 0 48 48" aria-hidden="true">
+        <circle cx="24" cy="24" r="21" fill="#fbf6ee" stroke="#2a231b" stroke-width="1.6"/>
+        <g stroke="#2a231b" stroke-width="1.6" stroke-linecap="round"><path d="M24 6v3M24 39v3M6 24h3M39 24h3"/></g>
+        <line id="aig-h" x1="24" y1="24" x2="24" y2="14" stroke="#2a231b" stroke-width="2.6" stroke-linecap="round"/>
+        <line id="aig-m" x1="24" y1="24" x2="24" y2="9" stroke="#c0623a" stroke-width="1.6" stroke-linecap="round"/>
+        <circle cx="24" cy="24" r="2" fill="#2a231b"/>
+      </svg>
+
+      <div class="prix">
+        <div class="prix__piste">
+          <p class="prix__etat"><i><svg aria-hidden="true"><use href="#i-soleil"/></svg></i><span>La journée<b>15 000 F</b></span></p>
+          <p class="prix__etat"><i><svg aria-hidden="true"><use href="#i-lune"/></svg></i><span>24 heures<b>20 000 F</b></span></p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <p class="hero__indice"><span></span>Faites défiler, le soleil se couche</p>
+</header>
+
+<section class="soir" id="soir">
+  <svg class="soir__deco soir__lune" viewBox="-40 -40 80 80" aria-hidden="true"><circle r="30" fill="#ebb329" mask="url(#croissant)"/></svg>
+  <p class="eyebrow">Vos soirées</p>
+  <h2 class="soir__titre">Ce soir, <em>on reste à la maison.</em></h2>
+  <p class="soir__phrase">
+    Du popcorn
+    <span class="ico"><svg viewBox="0 0 48 48"><path d="M13 20 17 43h14l4-23Z"/><path d="M21 20l1.2 23M27 20l-1.2 23"/><path d="M12 20a5 5 0 0 1 3-8.5 6 6 0 0 1 9-4 6 6 0 0 1 9 3.5 5 5 0 0 1 3 9"/></svg></span>
+    devant <b>Netflix</b>, le match
+    <span class="ico"><svg viewBox="0 0 48 48"><rect x="6" y="10" width="36" height="24" rx="3"/><path d="M20 17v10l8-5Z"/><path d="M18 41h12M24 34v7"/></svg></span>
+    sur <b>Canal+</b>, le wifi
+    <span class="ico"><svg viewBox="0 0 48 48"><path d="M6 19a26 26 0 0 1 36 0"/><path d="M12 26a17 17 0 0 1 24 0"/><path d="M18 33a8 8 0 0 1 12 0"/><circle cx="24" cy="39" r="1.6"/></svg></span>
+    si vous le souhaitez, et l'esprit tranquille
+    <span class="ico"><svg viewBox="0 0 48 48"><path d="M24 5 39 11v12c0 9-6.5 15.5-15 19-8.5-3.5-15-10-15-19V11Z"/><path d="M17 24l5 5 9-10"/></svg></span>
+    : la <b>sécurité est garantie</b>.
+  </p>
+  <ul class="soir__puces">
+    <li>Canal+</li><li>Netflix</li><li>Wifi <small>en option</small></li><li>Climatisation</li><li>Sécurité garantie</li><li>Toutes les commodités</li>
+  </ul>
+</section>
+
+<section class="aube">
+  <div class="aube__texte">
+    <h2>Au réveil, <em>Angré est à vous.</em></h2>
+    <p>Des appartements dans toute la zone d'Angré, à Cocody. Très accessibles, de jour comme de nuit.</p>
+  </div>
+  <div class="aube__soleil" aria-hidden="true">
+    <svg viewBox="0 0 900 450">
+      <g class="aube__rayons" stroke="#ebb329" stroke-width="4" stroke-linecap="round"></g>
+      <path d="M150 450a300 300 0 0 1 600 0Z" fill="#ebb329"/>
+    </svg>
+  </div>
+</section>
+
+<section class="apparts" id="appartements">
+  <p class="eyebrow">Les appartements</p>
+  <h2>Trois façons de <em>poser vos valises</em>.</h2>
+  <div class="apparts__grille">
+    <ol class="formats">
+      <li class="format"><span class="format__n">01</span><h3>Studio</h3><p>Tout l'essentiel réuni dans une seule pièce. Idéal en solo ou à deux.</p></li>
+      <li class="format"><span class="format__n">02</span><h3>Chambre-salon</h3><p>Une chambre au calme et un vrai salon pour recevoir.</p></li>
+      <li class="format"><span class="format__n">03</span><h3>3 pièces</h3><p>De la place pour la famille ou entre amis.</p></li>
+    </ol>
+    <div class="collage">
+      <div class="blob blob--miel"></div>
+      <div class="blob blob--sauge"></div>
+      <svg class="feuille" style="left:66%;top:-6%;transform:rotate(30deg)" viewBox="0 0 80 40" aria-hidden="true"><path d="M2 20C20-6 60-6 78 20 60 46 20 46 2 20Z" fill="currentColor"/><path d="M2 20H70" stroke="#fbf6ee" stroke-width="1.5"/></svg>
+      <svg class="feuille" style="left:-4%;top:12%;transform:rotate(-40deg);color:#c0623a" viewBox="0 0 80 40" aria-hidden="true"><path d="M2 20C20-6 60-6 78 20 60 46 20 46 2 20Z" fill="currentColor"/><path d="M2 20H70" stroke="#fbf6ee" stroke-width="1.5"/></svg>
+      <figure class="cadre cadre--arche" data-vitesse="-8"><img src="assets/chambre-tete-de-lit-capitonnee.jpg" alt="Chambre avec tête de lit capitonnée, coussins colorés et télévision"></figure>
+      <figure class="cadre cadre--pilule" data-vitesse="14"><img src="assets/salon-tables-marbre.jpg" alt="Coin salon : panneau en bois, rideaux et tables effet marbre"></figure>
+      <figure class="cadre cadre--rond" data-vitesse="-18"><img src="assets/studio-lit-canape.jpg" alt="Studio avec lit double, canapé blanc et tapis à motif de vagues"></figure>
+      <p class="collage__note">Aperçu des appartements</p>
+    </div>
+  </div>
+</section>
+
+<section class="tarifs" id="tarifs">
+  <p class="eyebrow">Tarifs</p>
+  <h2>Deux formules, <em>zéro surprise</em>.</h2>
+  <div class="duo">
+    <article class="astre astre--soleil">
+      <svg class="astre__rayons" viewBox="-100 -100 200 200" aria-hidden="true"></svg>
+      <p class="astre__label">La journée</p>
+      <p class="astre__prix">15 000<small>F CFA</small></p>
+      <p class="astre__txt">Pour une pause, une sieste ou une journée à deux.</p>
+    </article>
+    <article class="astre astre--lune">
+      <span class="astre__orbite" aria-hidden="true"></span>
+      <p class="astre__label">24 heures</p>
+      <p class="astre__prix">20 000<small>F CFA</small></p>
+      <p class="astre__txt">Une nuit complète, à votre rythme.</p>
+    </article>
+  </div>
+  <p class="tarifs__long"><i></i>Long séjour ? <b>Tarif réduit avec wifi</b>, sur demande.</p>
+</section>
+
+<section class="contact" id="contact">
+  <div class="contact__grille">
+    <div>
+      <p class="eyebrow">Réservation</p>
+      <h2>Réservez <em>en un message</em>.</h2>
+      <p>Disponibilités et réservations sur WhatsApp au 07 14 37 00 32. Pour nous appeler, composez le 07 09 78 13 06.</p>
+      <div class="hero__ctas">
+        <a class="btn btn--plein" href="https://wa.me/2250714370032"><svg aria-hidden="true"><use href="#i-bulle"/></svg>Écrire sur WhatsApp</a>
+        <a class="btn btn--trait" href="tel:+2250709781306"><svg aria-hidden="true"><use href="#i-tel"/></svg>07 09 78 13 06</a>
+      </div>
+      <p class="contact__lieu"><svg aria-hidden="true"><use href="#i-lieu"/></svg>Toute la zone d'Angré · Cocody, Abidjan</p>
+    </div>
+    <div class="cle" aria-hidden="true">
+      <svg viewBox="0 0 200 330">
+        <circle cx="100" cy="22" r="18" fill="none" stroke="#fbf6ee" stroke-width="5"/>
+        <path d="M100 40 v26" stroke="#fbf6ee" stroke-width="5"/>
+        <rect x="40" y="66" width="120" height="150" rx="22" fill="#fbf6ee"/>
+        <circle cx="100" cy="92" r="9" fill="#c0623a"/>
+        <svg x="56" y="116" width="88" height="42" viewBox="0 0 120 56"><use href="#toit"/></svg>
+        <text x="100" y="186" text-anchor="middle" font-family="Instrument Serif, serif" font-size="26" letter-spacing="2" fill="#2a231b">PERFECT</text>
+        <path d="M100 216 v20" stroke="#ebb329" stroke-width="5"/>
+        <circle cx="100" cy="258" r="24" fill="none" stroke="#ebb329" stroke-width="10"/>
+        <path d="M100 282 V322 M100 300 h16 M100 314 h12" stroke="#ebb329" stroke-width="10" stroke-linecap="round"/>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<section class="planche">
+  <p class="eyebrow">Planche de direction artistique · Piste B</p>
+  <h3>Jour &amp; nuit : un cocon qui vit au rythme de la journée</h3>
+  <div class="nuancier">
+    <div class="pastille"><div class="pastille__c" style="background:#f3eadb"></div><div class="pastille__t"><b>Sable</b>#F3EADB · fond principal</div></div>
+    <div class="pastille"><div class="pastille__c" style="background:#e6d3b3"></div><div class="pastille__t"><b>Lin</b>#E6D3B3 · draps, linge</div></div>
+    <div class="pastille"><div class="pastille__c" style="background:#ebb329"></div><div class="pastille__t"><b>Miel</b>#EBB329 · l'or du logo</div></div>
+    <div class="pastille"><div class="pastille__c" style="background:#7f8f63"></div><div class="pastille__t"><b>Sauge</b>#7F8F63 · le plaid vert</div></div>
+    <div class="pastille"><div class="pastille__c" style="background:#c0623a"></div><div class="pastille__t"><b>Terracotta</b>#C0623A · accents</div></div>
+    <div class="pastille"><div class="pastille__c" style="background:#191c38"></div><div class="pastille__t"><b>Nuit</b>#191C38 · soirées</div></div>
+    <div class="pastille"><div class="pastille__c" style="background:#2a231b"></div><div class="pastille__t"><b>Encre</b>#2A231B · textes</div></div>
+  </div>
+  <div class="typos">
+    <div class="typo"><p class="eyebrow">Titres</p><p class="typo__ex" style="font-family:var(--f-display)">Votre <em>cocon</em></p><p>Instrument Serif, en romain et en italique. Élégante, chaleureuse, très actuelle.</p></div>
+    <div class="typo"><p class="eyebrow">Textes</p><p class="typo__ex" style="font-family:var(--f-texte);font-weight:600">Bienvenue</p><p>Figtree, une linéale ronde et lisible, de 400 à 700.</p></div>
+  </div>
+  <div class="signature">
+    <p class="eyebrow">Animation signature</p>
+    <p>Une fenêtre en arche donne sur Angré. Au défilement, le soleil se couche, le ciel passe à l'orange puis à la nuit, la lune se lève et les fenêtres s'allument une à une. Le toit doré du logo coiffe l'immeuble central. L'horloge tourne et l'étiquette passe de « La journée · 15 000 F » à « 24 heures · 20 000 F » : l'offre devient le spectacle.</p>
+    <p>Éléments décoratifs : arches, astres, feuilles, formes organiques qui respirent, icônes dessinées au trait qui se tracent au défilement, clé illustrée. Les photos (720 px) restent dans des cadres de taille moyenne.</p>
+  </div>
+</section>
+
+<footer class="pied">
+  <a href="#" class="logo" aria-label="Perfect Résidence">
+    <svg viewBox="0 0 120 56" aria-hidden="true"><use href="#toit"/></svg>
+    <span class="logo__txt"><span class="logo__nom">Perfect</span><span class="logo__sous">Résidence</span></span>
+  </a>
+  <div class="pied__liens"><a href="https://wa.me/2250714370032">WhatsApp · 07 14 37 00 32</a><a href="tel:+2250709781306">Appel · 07 09 78 13 06</a><a href="https://www.tiktok.com/@peferctresi">TikTok</a><span>Angré, Cocody · Abidjan</span></div>
+  <p class="pied__digifaz">Proposition de site réalisée par Digifaz</p>
+</footer>
+
+<p class="badge">Maquette · Piste B · Jour &amp; nuit<a href="index.html">Toutes les pistes</a></p>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/SplitText.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/DrawSVGPlugin.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.3.26/dist/lenis.min.js"></script>
+<script>
+  gsap.registerPlugin(ScrollTrigger, SplitText, DrawSVGPlugin);
+  const reduit = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const NS = "http://www.w3.org/2000/svg";
+
+  if (!reduit) {
+    const lenis = new Lenis({ autoRaf: false, lerp: 0.1 });
+    lenis.on("scroll", ScrollTrigger.update);
+    gsap.ticker.add((t) => lenis.raf(t * 1000));
+    gsap.ticker.lagSmoothing(0);
+  }
+
+  // Generateur pseudo-aleatoire stable (meme ciel a chaque chargement)
+  let graine = 7;
+  const alea = () => ((graine = (graine * 16807) % 2147483647) / 2147483647);
+
+  // ---------- Etoiles ----------
+  const etoiles = document.getElementById("etoiles");
+  for (let i = 0; i < 26; i++) {
+    const e = document.createElementNS(NS, "path");
+    const s = 0.5 + alea() * 0.9;
+    e.setAttribute("d", "M0-5L1.2-1.2 5 0 1.2 1.2 0 5-1.2 1.2-5 0-1.2-1.2Z");
+    e.setAttribute("transform", `translate(${(alea() * 380 + 10).toFixed(1)} ${(alea() * 260 + 40).toFixed(1)}) scale(${s.toFixed(2)})`);
+    e.setAttribute("fill", "#f6eedc");
+    e.setAttribute("class", "etoile");
+    e.style.animationDelay = (alea() * 2.8).toFixed(2) + "s";
+    e.style.opacity = 0;
+    etoiles.appendChild(e);
+  }
+
+  // ---------- Fenetres des immeubles ----------
+  const fenetres = document.getElementById("fenetres");
+  document.querySelectorAll("#ville .bat").forEach((b) => {
+    const x = +b.getAttribute("x"), y = +b.getAttribute("y"), w = +b.getAttribute("width");
+    if (w > 200) return;
+    for (let fy = y + 16; fy < 496; fy += 20) {
+      for (let fx = Math.max(x, 0) + 10; fx < x + w - 12 && fx < 392; fx += 15) {
+        if (alea() < 0.3) continue;
+        const r = document.createElementNS(NS, "rect");
+        r.setAttribute("x", fx); r.setAttribute("y", fy);
+        r.setAttribute("width", 7); r.setAttribute("height", 9);
+        r.setAttribute("fill", "#ebb329"); r.setAttribute("class", "fenetre");
+        r.style.opacity = 0;
+        fenetres.appendChild(r);
+      }
+    }
+  });
+
+  // ---------- Rayons (aube et tarif journee) ----------
+  const rayonsAube = document.querySelector(".aube__rayons");
+  for (let i = 0; i <= 18; i++) {
+    const a = Math.PI + (i / 18) * Math.PI, l = document.createElementNS(NS, "line");
+    l.setAttribute("x1", 450 + Math.cos(a) * 340); l.setAttribute("y1", 450 + Math.sin(a) * 340);
+    l.setAttribute("x2", 450 + Math.cos(a) * (i % 2 ? 390 : 420)); l.setAttribute("y2", 450 + Math.sin(a) * (i % 2 ? 390 : 420));
+    rayonsAube.appendChild(l);
+  }
+  const rayonsSoleil = document.querySelector(".astre__rayons");
+  for (let i = 0; i < 24; i++) {
+    const a = (i / 24) * Math.PI * 2, l = document.createElementNS(NS, "line");
+    l.setAttribute("x1", Math.cos(a) * 86); l.setAttribute("y1", Math.sin(a) * 86);
+    l.setAttribute("x2", Math.cos(a) * (i % 2 ? 92 : 97)); l.setAttribute("y2", Math.sin(a) * (i % 2 ? 92 : 97));
+    rayonsSoleil.appendChild(l);
+  }
+
+  // Couleurs initiales de la ville et du palmier (jour)
+  gsap.set(".bat", { fill: "#e5cfaa" });
+  gsap.set(".bat--b", { fill: "#d9bf96" });
+  gsap.set(".palmier__palmes path", { fill: "#7f8f63" });
+  gsap.set(".palmier__tronc", { stroke: "#8a6b45" });
+  gsap.set("#soleil", { x: 252, y: 168 });
+  gsap.set("#lune", { x: 84, y: 590 });
+  gsap.set(["#aig-h", "#aig-m"], { svgOrigin: "24 24" });
+
+  // ---------- Intro ----------
+  document.fonts.ready.then(() => {
+    const split = SplitText.create(".hero__titre", { type: "lines", mask: "lines" });
+    if (reduit) return;
+    gsap.timeline({ defaults: { ease: "expo.out" } })
+      .from(".scene__ciel", { y: 60, opacity: 0, duration: 1.4 }, 0)
+      .from("#soleil-intro", { y: 320, duration: 2, ease: "power3.out" }, 0.2)
+      .from(split.lines, { yPercent: 110, duration: 1.2, stagger: 0.09 }, 0.15)
+      .from([".hero__kicker", ".hero__sous", ".hero__ctas"], { y: 20, opacity: 0, duration: 1, stagger: 0.08 }, 0.5)
+      .from(".photo-arche", { y: 80, rotation: -6, opacity: 0, duration: 1.3 }, 0.55)
+      .from([".horloge", ".prix"], { scale: 0, opacity: 0, duration: 0.9, stagger: 0.12, ease: "back.out(1.8)" }, 0.9);
+    gsap.to(".nuages", { x: 26, duration: 7, ease: "sine.inOut", yoyo: true, repeat: -1 });
+  });
+
+  if (!reduit) {
+    // ---------- Signature : du jour a la nuit ----------
+    const hero = document.querySelector(".hero");
+    gsap.timeline({
+      defaults: { ease: "none" },
+      scrollTrigger: { trigger: hero, start: "top top", end: "+=170%", scrub: 1, pin: true }
+    })
+      // 1. Coucher de soleil
+      .to("#soleil", { x: 332, y: 492, duration: 0.55 }, 0)
+      .to("#ciel-soir", { opacity: 1, duration: 0.32 }, 0.08)
+      .to(".nuage", { opacity: 0, duration: 0.25 }, 0.1)
+      .to(hero, { "--h-fond": "#f0c9a2", duration: 0.35 }, 0.05)
+      .to(".bat:not(.bat--b)", { fill: "#a65a3f", duration: 0.3 }, 0.15)
+      .to(".bat--b", { fill: "#8f4a35", duration: 0.3 }, 0.15)
+      .to(".palmier__palmes path", { fill: "#5a3227", duration: 0.3 }, 0.15)
+      .to(".palmier__tronc", { stroke: "#5a3227", duration: 0.3 }, 0.15)
+      // 2. Crepuscule terracotta : le texte bascule en clair
+      .to(hero, { "--h-fond": "#a9533a", duration: 0.12 }, 0.42)
+      .to(hero, { "--h-texte": "#fbf6ee", "--h-doux": "rgba(251,246,238,.8)", "--h-accent": "#ebb329", duration: 0.06 }, 0.48)
+      // 3. Nuit
+      .to("#ciel-nuit", { opacity: 1, duration: 0.25 }, 0.5)
+      .to(hero, { "--h-fond": "#191c38", "--h-doux": "rgba(243,234,219,.74)", duration: 0.2 }, 0.56)
+      .to(".bat:not(.bat--b)", { fill: "#12142e", duration: 0.22 }, 0.52)
+      .to(".bat--b", { fill: "#1b1f45", duration: 0.22 }, 0.52)
+      .to(".palmier__palmes path", { fill: "#0c0e22", duration: 0.22 }, 0.52)
+      .to(".palmier__tronc", { stroke: "#0c0e22", duration: 0.22 }, 0.52)
+      .to("#lune", { x: 112, y: 150, duration: 0.4, ease: "power1.out" }, 0.55)
+      .to(".etoile", { opacity: 1, duration: 0.08, stagger: { each: 0.01, from: "random" } }, 0.64)
+      .to(".fenetre", { opacity: 1, duration: 0.04, stagger: { each: 0.003, from: "random" } }, 0.68)
+      .to(".photo-arche__nuit", { opacity: 1, duration: 0.25 }, 0.55)
+      .to(".prix__piste", { yPercent: -50, duration: 0.1, ease: "power2.inOut" }, 0.5)
+      .to("#aig-m", { rotation: 1080, duration: 1 }, 0)
+      .to("#aig-h", { rotation: 90, duration: 1 }, 0);
+
+    // ---------- Soiree : icones tracees et mots soulignes ----------
+    gsap.utils.toArray(".ico").forEach((ico) => {
+      gsap.from(ico.querySelectorAll("path, rect, circle"), {
+        drawSVG: 0, duration: 1.4, ease: "power2.inOut", stagger: 0.12,
+        scrollTrigger: { trigger: ico, start: "top 85%" }
+      });
+    });
+    gsap.utils.toArray(".soir__phrase b").forEach((b) => {
+      gsap.fromTo(b, { backgroundSize: "0% 3px" }, {
+        backgroundSize: "100% 3px", duration: 1.2, ease: "power3.inOut",
+        scrollTrigger: { trigger: b, start: "top 80%" }
+      });
+    });
+    gsap.from(".soir__puces li", { y: 20, opacity: 0, duration: 0.8, stagger: 0.06, ease: "power3.out", scrollTrigger: { trigger: ".soir__puces", start: "top 90%" } });
+
+    // ---------- Aube : la nuit redevient jour ----------
+    // Nuit -> aube terracotta -> peche -> sable, pour eviter un melange grisatre
+    const aube = document.querySelector(".aube");
+    gsap.timeline({ defaults: { ease: "none" }, scrollTrigger: { trigger: aube, start: "top 75%", end: "bottom bottom", scrub: true } })
+      .fromTo(aube, { backgroundColor: "#191c38", color: "#f3eadb", "--a-accent": "#ebb329" }, { backgroundColor: "#a9533a", duration: 1 }, 0)
+      .to(aube, { backgroundColor: "#f0c9a2", duration: 1 }, 1)
+      .to(aube, { color: "#2a231b", "--a-accent": "#c0623a", duration: 0.25 }, 1.3)
+      .to(aube, { backgroundColor: "#f3eadb", duration: 1 }, 2)
+      .fromTo(".aube__soleil", { yPercent: 80 }, { yPercent: 8, duration: 3 }, 0)
+      .fromTo(".aube__rayons", { rotation: -20, svgOrigin: "450 450" }, { rotation: 10, svgOrigin: "450 450", duration: 3 }, 0);
+
+    // ---------- Appartements : parallaxe du collage ----------
+    gsap.utils.toArray(".cadre").forEach((c) => {
+      gsap.to(c, { yPercent: +c.dataset.vitesse, ease: "none", scrollTrigger: { trigger: ".collage", start: "top bottom", end: "bottom top", scrub: true } });
+    });
+    gsap.from(".cadre", { scale: 0.7, opacity: 0, duration: 1.2, ease: "back.out(1.4)", stagger: 0.12, scrollTrigger: { trigger: ".collage", start: "top 75%" } });
+    gsap.from(".format", { y: 30, opacity: 0, duration: 1, ease: "power3.out", stagger: 0.1, scrollTrigger: { trigger: ".formats", start: "top 80%" } });
+
+    // ---------- Tarifs : les astres entrent en tournant ----------
+    gsap.from(".astre", { rotation: -25, scale: 0.75, opacity: 0, duration: 1.3, ease: "back.out(1.5)", stagger: 0.15, scrollTrigger: { trigger: ".duo", start: "top 80%" } });
+  }
+</script>
+</body>
+</html>

@@ -1,0 +1,561 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Perfect Résidence · Piste A · Mosaïque</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400..800&family=Onest:wght@400..700&display=swap" rel="stylesheet">
+<style>
+  /* Tokens du theme - piste A */
+  :root {
+    --creme: #f5efe4;
+    --papier: #fffbf4;
+    --encre: #151412;
+    --soleil: #ebb329;
+    --corail: #e04a2f;
+    --cobalt: #2550c0;
+    --rose: #f3c5b5;
+
+    --f-display: "Unbounded", system-ui, sans-serif;
+    --f-texte: "Onest", system-ui, sans-serif;
+
+    --gouttiere: clamp(16px, 4vw, 56px);
+    --ease-net: cubic-bezier(.76, 0, .24, 1);
+    --ease-sortie: cubic-bezier(.16, 1, .3, 1);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html.lenis, html.lenis body { height: auto; }
+  .lenis.lenis-smooth { scroll-behavior: auto !important; }
+  body {
+    background: var(--creme); color: var(--encre);
+    font-family: var(--f-texte); font-size: 16px; line-height: 1.6;
+    -webkit-font-smoothing: antialiased; overflow-x: hidden;
+  }
+  a { color: inherit; text-decoration: none; }
+  img { display: block; max-width: 100%; }
+  .eyebrow { font-size: 12px; font-weight: 600; letter-spacing: .2em; text-transform: uppercase; }
+
+  /* Formes geometriques reutilisables */
+  .f-rond { border-radius: 50%; aspect-ratio: 1; }
+  .f-demi { border-radius: 999px 999px 0 0; aspect-ratio: 2 / 1; }
+  .f-quart { border-radius: 0 100% 0 0; aspect-ratio: 1; }
+  .f-tri { clip-path: polygon(50% 0, 100% 100%, 0 100%); aspect-ratio: 1; }
+  .f-carre { aspect-ratio: 1; }
+
+  /* Navigation */
+  .nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 50;
+    display: flex; align-items: center; justify-content: space-between; gap: 16px;
+    padding: 14px var(--gouttiere); background: var(--creme); border-bottom: 2px solid var(--encre);
+  }
+  .logo { display: inline-flex; align-items: center; gap: 10px; color: var(--soleil); }
+  .logo svg { width: 42px; height: auto; }
+  .logo__txt { display: flex; flex-direction: column; line-height: 1; color: var(--encre); }
+  .logo__nom { font-family: var(--f-display); font-weight: 700; font-size: 18px; letter-spacing: .02em; text-transform: uppercase; }
+  .logo__sous { font-size: 9px; font-weight: 600; letter-spacing: .38em; text-transform: uppercase; margin-top: 4px; }
+  .nav__liens { display: flex; gap: 28px; font-size: 14px; font-weight: 500; }
+  .nav__liens a { display: inline-flex; align-items: center; gap: 8px; }
+  .nav__liens a i { width: 8px; height: 8px; background: var(--encre); transition: transform .5s var(--ease-net), border-radius .5s var(--ease-net), background .3s; }
+  .nav__liens a:hover i { transform: rotate(45deg); border-radius: 50%; background: var(--corail); }
+  .nav__cta { display: inline-flex; align-items: center; gap: 8px; padding: 12px 18px; background: var(--encre); color: var(--creme); font-size: 14px; font-weight: 600; }
+  .nav__cta svg { width: 16px; height: 16px; }
+  @media (max-width: 860px) { .nav__liens { display: none; } }
+
+  /* Hero */
+  .hero { min-height: 100svh; display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: clamp(24px, 4vw, 64px); padding: 110px var(--gouttiere) 56px; max-width: 1480px; margin: 0 auto; }
+  .hero__kicker { display: inline-flex; align-items: center; gap: 10px; font-size: 13px; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; }
+  .hero__kicker i { width: 10px; height: 10px; border-radius: 50%; background: var(--corail); }
+  .hero__titre {
+    font-family: var(--f-display); font-weight: 650; text-transform: uppercase;
+    font-size: clamp(38px, 5.4vw, 92px); line-height: 1; letter-spacing: -.035em; margin: 22px 0 24px;
+  }
+  .hero__titre .ligne { display: block; }
+  .o-soleil { display: inline-block; position: relative; color: transparent; }
+  .o-soleil::after { content: ""; position: absolute; left: 50%; top: 50%; width: .74em; height: .74em; border-radius: 50%; background: var(--soleil); transform: translate(-50%, -46%); }
+  .hero__titre .accent { color: var(--corail); }
+  .hero__sous { font-size: clamp(16px, 1.3vw, 19px); max-width: 470px; }
+  .hero__ctas { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 30px; }
+  .btn { display: inline-flex; align-items: center; gap: 10px; padding: 17px 26px; font-weight: 600; font-size: 15px; border: 2px solid var(--encre); transition: background .3s, color .3s; }
+  .btn svg { width: 18px; height: 18px; }
+  .btn--plein { background: var(--encre); color: var(--creme); }
+  .btn--plein:hover { background: var(--corail); border-color: var(--corail); color: var(--encre); }
+  .btn--trait:hover { background: var(--encre); color: var(--creme); }
+  .hero__prix { display: inline-flex; align-items: center; gap: 10px; margin-top: 26px; font-size: 14px; }
+  .hero__prix b { font-family: var(--f-display); font-weight: 600; }
+  .hero__prix i { width: 22px; height: 11px; border-radius: 999px 999px 0 0; background: var(--soleil); }
+
+  .mosaique {
+    justify-self: center; width: min(100%, 78svh, 640px); aspect-ratio: 1;
+    display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(3, 1fr); gap: 10px;
+  }
+  .t { position: relative; overflow: hidden; display: grid; place-items: center; background: var(--papier); }
+  .t__forme { width: 70%; }
+  .t--cobalt { background: var(--cobalt); }
+  .t--soleil { background: var(--soleil); }
+  .t--rose { background: var(--rose); }
+  .t--corail { background: var(--corail); }
+  .t--encre { background: var(--encre); color: var(--creme); }
+  .t--quart .t__forme { position: absolute; left: 0; bottom: 0; width: 86%; }
+  .t--demi .t__forme { width: 84%; align-self: end; }
+  .t--photo img { width: 100%; height: 100%; object-fit: cover; }
+  .t--arche { background: var(--rose); padding: 12% 12% 0; }
+  .t--arche img { border-radius: 999px 999px 0 0; }
+  .t--rond { padding: 12%; }
+  .t--rond img { border-radius: 50%; height: auto; aspect-ratio: 1; }
+  .t--carre img { filter: saturate(.75) hue-rotate(-6deg) contrast(1.05); }
+  .t--prix { align-content: center; justify-items: start; padding: 14%; gap: 4px; }
+  .t--prix span { font-size: clamp(9px, 1vw, 12px); font-weight: 600; letter-spacing: .16em; text-transform: uppercase; color: var(--soleil); }
+  .t--prix b { font-family: var(--f-display); font-weight: 600; font-size: clamp(14px, 1.9vw, 28px); line-height: 1.05; white-space: nowrap; letter-spacing: -.03em; }
+  .t--toit svg { width: 78%; color: var(--encre); }
+  .t--rayures svg { width: 100%; height: 100%; }
+
+  @media (max-width: 860px) {
+    .hero { grid-template-columns: 1fr; padding-top: 88px; gap: 20px; }
+    .mosaique { order: -1; width: min(100%, 37svh); gap: 6px; }
+    .cache-mobile { display: none; }
+    .hero__kicker { font-size: 12px; }
+    .hero__titre { font-size: clamp(32px, 9.4vw, 60px); margin: 14px 0 16px; }
+    .hero__ctas { margin-top: 22px; }
+    .btn { padding: 15px 20px; font-size: 14px; }
+  }
+
+  /* Ruban defilant */
+  .ruban { background: var(--cobalt); color: var(--creme); overflow: hidden; padding: 20px 0; border-block: 2px solid var(--encre); }
+  .ruban__piste { display: flex; width: max-content; }
+  .ruban__groupe { display: flex; align-items: center; gap: clamp(20px, 3vw, 44px); padding-right: clamp(20px, 3vw, 44px); }
+  .ruban__groupe span { font-family: var(--f-display); font-weight: 600; text-transform: uppercase; font-size: clamp(24px, 3.6vw, 52px); letter-spacing: -.02em; white-space: nowrap; }
+  .ruban__groupe i { display: block; flex: none; width: clamp(20px, 2.6vw, 36px); }
+
+  /* Tarifs en bandes */
+  .formules { padding: clamp(96px, 12vw, 180px) 0 0; }
+  .formules__tete { padding: 0 var(--gouttiere); max-width: 1480px; margin: 0 auto clamp(40px, 5vw, 72px); display: flex; justify-content: space-between; align-items: end; gap: 24px; flex-wrap: wrap; }
+  .formules__tete .eyebrow { color: var(--corail); }
+  .formules h2 { font-family: var(--f-display); font-weight: 650; text-transform: uppercase; font-size: clamp(30px, 4.4vw, 72px); line-height: 1; letter-spacing: -.035em; margin-top: 14px; max-width: 15ch; }
+  .formules__tete p { max-width: 340px; }
+  .bande { display: grid; grid-template-columns: .9fr 1.1fr; align-items: center; border-top: 2px solid var(--encre); overflow: hidden; }
+  .bande--soleil { background: var(--soleil); }
+  .bande--cobalt { background: var(--cobalt); color: var(--creme); }
+  .bande__forme { position: relative; height: clamp(220px, 30vw, 420px); display: grid; place-items: end center; overflow: hidden; }
+  .bande--soleil .bande__forme span { width: 76%; background: var(--cobalt); }
+  .bande--cobalt .bande__forme { place-items: center; }
+  .bande--cobalt .bande__forme .f-rond { width: 52%; background: var(--soleil); }
+  .bande--cobalt .bande__forme .f-quart { position: absolute; left: 0; bottom: 0; width: 30%; background: var(--corail); }
+  .bande__txt { padding: 40px var(--gouttiere); }
+  .bande__prix { font-family: var(--f-display); font-weight: 700; font-size: clamp(56px, 10vw, 176px); line-height: .9; letter-spacing: -.05em; margin: 10px 0 14px; white-space: nowrap; }
+  .bande__prix small { font-size: .16em; letter-spacing: .04em; margin-left: .4em; vertical-align: top; font-weight: 600; }
+  .bande__txt p:last-child { max-width: 380px; font-size: 17px; }
+  .formules__long { display: flex; align-items: center; gap: 16px; padding: 26px var(--gouttiere); border-top: 2px solid var(--encre); border-bottom: 2px solid var(--encre); background: var(--rose); font-size: clamp(16px, 1.6vw, 22px); }
+  .formules__long b { font-weight: 700; }
+  .formules__long svg { width: 46px; flex: none; }
+  @media (max-width: 760px) { .bande { grid-template-columns: 1fr; } .bande__forme { height: 200px; } }
+
+  /* Appartements : defilement horizontal epingle */
+  .apparts { overflow: hidden; background: var(--creme); }
+  .apparts__piste { display: flex; align-items: center; gap: clamp(16px, 2vw, 28px); height: 100svh; padding: 90px var(--gouttiere) 40px; width: max-content; }
+  .panneau { width: min(80vw, 460px); flex: none; }
+  .panneau .eyebrow { color: var(--corail); }
+  .panneau h2 { font-family: var(--f-display); font-weight: 650; text-transform: uppercase; font-size: clamp(30px, 4vw, 60px); line-height: 1; letter-spacing: -.035em; margin: 14px 0 18px; }
+  .panneau__fleche { display: inline-flex; align-items: center; gap: 12px; font-weight: 600; }
+  .panneau__fleche i { width: 46px; height: 46px; border-radius: 50%; background: var(--soleil); display: grid; place-items: center; }
+  .affiche { position: relative; flex: none; width: min(82vw, 540px); height: min(74svh, 660px); display: grid; grid-template-rows: 1fr auto; border: 2px solid var(--encre); overflow: hidden; }
+  .affiche--corail { background: var(--corail); }
+  .affiche--cobalt { background: var(--cobalt); color: var(--creme); }
+  .affiche--soleil { background: var(--soleil); }
+  .affiche__compo { position: relative; overflow: hidden; }
+  .affiche__compo > * { position: absolute; display: block; }
+  .affiche__txt { padding: 22px 26px 26px; display: grid; grid-template-columns: auto 1fr; gap: 4px 16px; align-items: baseline; border-top: 2px solid var(--encre); }
+  .affiche__txt span { font-family: var(--f-display); font-weight: 600; font-size: 14px; }
+  .affiche__txt h3 { font-family: var(--f-display); font-weight: 650; text-transform: uppercase; font-size: clamp(26px, 3vw, 42px); line-height: 1; letter-spacing: -.03em; }
+  .affiche__txt p { grid-column: 2; max-width: 360px; }
+  .ph { overflow: hidden; border: 2px solid var(--encre); }
+  .ph img { width: 100%; height: 100%; object-fit: cover; }
+
+  /* Confort */
+  .confort { padding: clamp(96px, 12vw, 180px) var(--gouttiere); max-width: 1480px; margin: 0 auto; }
+  .confort .eyebrow { color: var(--corail); }
+  .confort h2 { font-family: var(--f-display); font-weight: 650; text-transform: uppercase; font-size: clamp(30px, 4.4vw, 72px); line-height: 1; letter-spacing: -.035em; margin: 14px 0 clamp(36px, 5vw, 64px); max-width: 16ch; }
+  .liste { list-style: none; border-top: 2px solid var(--encre); }
+  .liste li {
+    position: relative; display: grid; grid-template-columns: clamp(34px, 4vw, 56px) 1fr auto; align-items: center; gap: clamp(14px, 2.4vw, 32px);
+    padding: clamp(16px, 2vw, 26px) clamp(8px, 1.4vw, 20px); border-bottom: 2px solid var(--encre); isolation: isolate;
+  }
+  .liste li::before { content: ""; position: absolute; inset: 0; z-index: -1; background: var(--c); clip-path: circle(0% at 4% 50%); transition: clip-path .8s var(--ease-net); }
+  .liste .puce { display: block; width: 100%; }
+  .liste .puce i { display: block; width: 100%; background: var(--c); transition: transform .8s var(--ease-net), background .4s; }
+  .liste li { transition: color .35s .12s; }
+  .liste b { font-family: var(--f-display); font-weight: 600; text-transform: uppercase; font-size: clamp(22px, 3.6vw, 56px); line-height: 1; letter-spacing: -.03em; }
+  .liste small { font-size: 15px; text-align: right; max-width: 240px; }
+  @media (hover: hover) {
+    .liste li:hover::before { clip-path: circle(150% at 4% 50%); }
+    .liste li:hover { color: var(--t, var(--encre)); }
+    .liste li:hover .puce i { transform: rotate(180deg) scale(.6); background: var(--t, var(--encre)); }
+  }
+  @media (max-width: 640px) { .liste li { grid-template-columns: 30px 1fr; } .liste small { grid-column: 2; text-align: left; } }
+
+  /* Contact */
+  .contact { position: relative; background: var(--cobalt); color: var(--creme); padding: clamp(110px, 14vw, 200px) var(--gouttiere) clamp(80px, 10vw, 140px); overflow: hidden; border-top: 2px solid var(--encre); }
+  .contact__toit { position: absolute; left: 50%; top: 40px; width: min(1300px, 150vw); transform: translateX(-50%); color: var(--soleil); opacity: .45; pointer-events: none; }
+  .contact__contenu { position: relative; max-width: 1100px; }
+  .contact .eyebrow { color: var(--soleil); }
+  .contact h2 { font-family: var(--f-display); font-weight: 700; text-transform: uppercase; font-size: clamp(40px, 7.4vw, 128px); line-height: .95; letter-spacing: -.045em; margin: 16px 0 24px; }
+  .contact h2 span { color: var(--soleil); }
+  .contact p { max-width: 520px; font-size: 17px; }
+  .contact .btn { border-color: var(--creme); }
+  .contact .btn--plein { background: var(--soleil); border-color: var(--soleil); color: var(--encre); }
+  .contact .btn--plein:hover { background: var(--creme); border-color: var(--creme); }
+  .contact .btn--trait:hover { background: var(--creme); color: var(--cobalt); }
+  .contact__deco { position: absolute; right: var(--gouttiere); bottom: 60px; display: flex; gap: 10px; }
+  .contact__deco > * { display: block; width: clamp(40px, 6vw, 84px); }
+  @media (max-width: 760px) { .contact__deco { position: static; margin-top: 40px; } }
+
+  /* Planche DA */
+  .planche { background: var(--papier); padding: clamp(64px, 10vw, 140px) var(--gouttiere); border-top: 2px solid var(--encre); }
+  .planche .eyebrow { color: var(--corail); }
+  .planche h3 { font-family: var(--f-display); font-weight: 650; text-transform: uppercase; font-size: clamp(24px, 3.4vw, 44px); letter-spacing: -.03em; margin: 12px 0 36px; max-width: 24ch; }
+  .nuancier { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 10px; }
+  .pastille { border: 2px solid var(--encre); background: #fff; }
+  .pastille__c { height: 86px; border-bottom: 2px solid var(--encre); }
+  .pastille__t { padding: 10px 12px; font-size: 12px; line-height: 1.4; }
+  .pastille__t b { display: block; font-weight: 700; }
+  .typos { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin-top: 24px; }
+  .typo, .signature { background: #fff; padding: 28px; border: 2px solid var(--encre); }
+  .typo__ex { font-size: clamp(34px, 7vw, 52px); line-height: 1; margin: 10px 0; }
+  .signature { margin-top: 10px; max-width: 1000px; }
+  .signature p + p { margin-top: 10px; }
+  @media (max-width: 720px) { .typos { grid-template-columns: minmax(0, 1fr); } }
+
+  .pied { background: var(--encre); color: rgba(245, 239, 228, .75); padding: 64px var(--gouttiere) 96px; display: flex; justify-content: space-between; gap: 24px; flex-wrap: wrap; align-items: end; }
+  .pied .logo__txt { color: var(--creme); }
+  .pied .logo svg { width: 60px; }
+  .pied .logo__nom { font-size: 28px; }
+  .pied__liens { display: flex; gap: 22px; flex-wrap: wrap; font-size: 14px; }
+  .pied__digifaz { width: 100%; padding-top: 24px; border-top: 1px solid rgba(245, 239, 228, .16); font-size: 12px; letter-spacing: .08em; opacity: .7; }
+
+  .badge { position: fixed; left: 12px; bottom: 12px; z-index: 60; padding: 8px 14px; font-size: 11px; letter-spacing: .04em; background: var(--encre); color: var(--soleil); }
+  .badge a { text-decoration: underline; text-underline-offset: 2px; color: var(--creme); margin-left: 6px; }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <!-- Pictogramme du toit repris du logo (couleur = currentColor) -->
+  <symbol id="toit" viewBox="0 0 120 56">
+    <path d="M7 50 L46 11 L80 45" fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="square"/>
+    <path d="M62 48.5 H116" stroke="currentColor" stroke-width="7"/>
+    <g fill="currentColor"><rect x="39" y="22" width="6" height="6"/><rect x="47" y="22" width="6" height="6"/><rect x="39" y="30" width="6" height="6"/><rect x="47" y="30" width="6" height="6"/></g>
+  </symbol>
+  <symbol id="rayures" viewBox="0 0 100 100"><g stroke="#151412" stroke-width="6"><path d="M-10 30 30 -10M-10 55 55 -10M-10 80 80 -10M-10 105 105 -10M15 110 110 15M40 110 110 40M65 110 110 65"/></g></symbol>
+  <symbol id="i-bulle" viewBox="0 0 24 24"><path d="M4 18.5 5.2 15A8 8 0 1 1 8.6 18.6Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M9 10.5c.5 1.8 2 3.3 3.8 3.9" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+  <symbol id="i-tel" viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></symbol>
+  <symbol id="i-fleche" viewBox="0 0 24 24"><path d="M4 12h15M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square"/></symbol>
+</svg>
+
+<nav class="nav">
+  <a href="#" class="logo" aria-label="Perfect Résidence, accueil">
+    <svg viewBox="0 0 120 56" aria-hidden="true"><use href="#toit"/></svg>
+    <span class="logo__txt"><span class="logo__nom">Perfect</span><span class="logo__sous">Résidence</span></span>
+  </a>
+  <div class="nav__liens"><a href="#tarifs"><i></i>Tarifs</a><a href="#appartements"><i></i>Appartements</a><a href="#confort"><i></i>Confort</a><a href="#contact"><i></i>Contact</a></div>
+  <a class="nav__cta" href="https://wa.me/2250714370032"><svg aria-hidden="true"><use href="#i-bulle"/></svg>Réserver</a>
+</nav>
+
+<header class="hero">
+  <div class="hero__texte">
+    <p class="hero__kicker"><i></i><span class="cache-mobile">Appartements </span>meublés · Angré, Cocody</p>
+    <h1 class="hero__titre">
+      <span class="ligne">Le c<span class="o-soleil">o</span>nfort,</span>
+      <span class="ligne">pièce par</span>
+      <span class="ligne accent">pièce.</span>
+    </h1>
+    <p class="hero__sous">Studios, chambres-salons et 3 pièces meublés dans toute la zone d'Angré. Canal+, Netflix, climatisation et sécurité garantie.</p>
+    <div class="hero__ctas">
+      <a class="btn btn--plein magnetique" href="https://wa.me/2250714370032"><svg aria-hidden="true"><use href="#i-bulle"/></svg><span>Réserver<span class="cache-mobile"> sur WhatsApp</span></span></a>
+      <a class="btn btn--trait" href="tel:+2250709781306"><svg aria-hidden="true"><use href="#i-tel"/></svg>Appeler</a>
+    </div>
+    <p class="hero__prix"><i></i>À partir de <b>15 000 F</b> la journée</p>
+  </div>
+
+  <div class="mosaique" aria-label="Mosaïque de formes et de photos des appartements">
+    <div class="t t--cobalt"><span class="t__forme f-rond" style="background:var(--soleil)"></span></div>
+    <div class="t t--photo t--arche"><img src="assets/chambre-plaid-vert.jpg" alt="Chambre avec plaid vert et télévision murale"></div>
+    <div class="t t--soleil t--toit"><svg class="t__forme" viewBox="0 0 120 56" aria-hidden="true"><use href="#toit"/></svg></div>
+    <div class="t t--rose t--quart"><span class="t__forme f-quart" style="background:var(--corail)"></span></div>
+    <div class="t t--corail t--photo t--rond"><img src="assets/studio-lit-canape.jpg" alt="Studio avec lit double et canapé blanc"></div>
+    <div class="t t--rayures"><svg class="t__forme" viewBox="0 0 100 100" aria-hidden="true"><use href="#rayures"/></svg></div>
+    <div class="t t--encre t--prix"><span>La journée</span><b>15 000 F</b></div>
+    <div class="t t--photo t--carre"><img src="assets/chambre-tete-de-lit-capitonnee.jpg" alt="Chambre avec tête de lit capitonnée"></div>
+    <div class="t t--soleil t--demi"><span class="t__forme f-demi" style="background:var(--cobalt)"></span></div>
+  </div>
+</header>
+
+<div class="ruban" aria-hidden="true">
+  <div class="ruban__piste">
+    <div class="ruban__groupe">
+      <span>Studio</span><i class="f-rond" style="background:var(--soleil)"></i>
+      <span>Chambre-salon</span><i class="f-tri" style="background:var(--corail)"></i>
+      <span>3 pièces</span><i class="f-carre" style="background:var(--rose)"></i>
+      <span>Canal+</span><i class="f-demi" style="background:var(--soleil)"></i>
+      <span>Netflix</span><i class="f-rond" style="background:var(--corail)"></i>
+      <span>Wifi en option</span><i class="f-tri" style="background:var(--soleil)"></i>
+    </div>
+  </div>
+</div>
+
+<section class="formules" id="tarifs">
+  <div class="formules__tete">
+    <div><p class="eyebrow">Tarifs</p><h2>Deux formules, zéro calcul.</h2></div>
+    <p>Des prix clairs, affichés d'avance. Pour un long séjour, demandez votre tarif.</p>
+  </div>
+  <div class="bande bande--soleil">
+    <div class="bande__forme"><span class="f-demi"></span></div>
+    <div class="bande__txt">
+      <p class="eyebrow">La journée</p>
+      <p class="bande__prix"><span class="compteur" data-valeur="15000">15 000</span><small>F CFA</small></p>
+      <p>Une pause, une sieste ou une journée à deux, en toute tranquillité.</p>
+    </div>
+  </div>
+  <div class="bande bande--cobalt">
+    <div class="bande__forme"><span class="f-rond"></span><span class="f-quart"></span></div>
+    <div class="bande__txt">
+      <p class="eyebrow" style="color:var(--soleil)">24 heures</p>
+      <p class="bande__prix"><span class="compteur" data-valeur="20000">20 000</span><small>F CFA</small></p>
+      <p>Une nuit complète, à votre rythme.</p>
+    </div>
+  </div>
+  <p class="formules__long"><svg viewBox="0 0 100 100" aria-hidden="true"><use href="#rayures"/></svg><span>Long séjour : <b>tarif réduit avec wifi</b>, sur demande.</span></p>
+</section>
+
+<section class="apparts" id="appartements">
+  <div class="apparts__piste">
+    <div class="panneau">
+      <p class="eyebrow">Les appartements</p>
+      <h2>Trois formats, selon votre séjour.</h2>
+      <p class="panneau__fleche"><i><svg width="20" height="20" aria-hidden="true"><use href="#i-fleche"/></svg></i>Faites défiler</p>
+    </div>
+    <article class="affiche affiche--corail">
+      <div class="affiche__compo">
+        <span class="f-carre tourne" style="width:22%;right:10%;top:10%;background:var(--soleil)"></span>
+        <div class="ph f-rond" style="width:58%;left:21%;top:12%;border-radius:50%"><img src="assets/studio-lit-canape.jpg" alt="Studio avec lit double et canapé"></div>
+        <span class="f-rond" style="width:9%;left:10%;bottom:12%;background:var(--encre)"></span>
+      </div>
+      <div class="affiche__txt"><span>01</span><h3>Studio</h3><p>Tout l'essentiel réuni dans une seule pièce. Idéal en solo ou à deux.</p></div>
+    </article>
+    <article class="affiche affiche--cobalt">
+      <div class="affiche__compo">
+        <span class="f-demi tourne" style="width:70%;left:15%;bottom:0;background:var(--soleil)"></span>
+        <div class="ph" style="width:40%;left:30%;top:9%;height:80%;border-radius:999px 999px 0 0;border-bottom:0"><img src="assets/chambre-tete-de-lit-capitonnee.jpg" alt="Chambre avec tête de lit capitonnée" style="filter:saturate(.75) hue-rotate(-6deg)"></div>
+        <span class="f-rond" style="width:12%;right:9%;top:12%;background:var(--rose)"></span>
+      </div>
+      <div class="affiche__txt" style="border-color:var(--encre)"><span>02</span><h3>Chambre-salon</h3><p>Une chambre au calme et un vrai salon pour recevoir.</p></div>
+    </article>
+    <article class="affiche affiche--soleil">
+      <div class="affiche__compo">
+        <div class="ph" style="width:38%;left:9%;top:12%;aspect-ratio:1"><img src="assets/salon-tables-marbre.jpg" alt="Coin salon avec tables effet marbre" style="object-position:70% 20%"></div>
+        <div class="ph" style="width:38%;right:9%;top:12%;aspect-ratio:1;border-radius:999px 999px 0 0"><img src="assets/chambre-plaid-vert.jpg" alt="Chambre au plaid vert"></div>
+        <div class="tourne" style="width:38%;left:31%;bottom:8%;aspect-ratio:2/1;background:var(--encre);display:grid;place-items:center;color:var(--soleil)"><svg viewBox="0 0 120 56" style="width:60%" aria-hidden="true"><use href="#toit"/></svg></div>
+      </div>
+      <div class="affiche__txt"><span>03</span><h3>3 pièces</h3><p>De la place pour la famille ou entre amis.</p></div>
+    </article>
+  </div>
+</section>
+
+<section class="confort" id="confort">
+  <p class="eyebrow">Le confort</p>
+  <h2>Toutes les commodités, sans exception.</h2>
+  <ul class="liste">
+    <li style="--c:var(--soleil)"><span class="puce"><i class="f-rond"></i></span><b>Canal+</b><small>Les matchs et vos chaînes préférées</small></li>
+    <li style="--c:var(--corail)"><span class="puce"><i class="f-tri"></i></span><b>Netflix</b><small>Vos soirées séries et cinéma</small></li>
+    <li style="--c:var(--cobalt);--t:var(--creme)"><span class="puce"><i class="f-carre"></i></span><b>Wifi</b><small>En option, selon votre séjour</small></li>
+    <li style="--c:var(--rose)"><span class="puce"><i class="f-demi"></i></span><b>Climatisation</b><small>Pour des nuits au frais</small></li>
+    <li style="--c:var(--encre);--t:var(--creme)"><span class="puce"><i class="f-quart"></i></span><b>Sécurité</b><small>Garantie, pour un séjour serein</small></li>
+    <li style="--c:var(--soleil)"><span class="puce"><i class="f-rond"></i></span><b>Accès facile</b><small>Dans toute la zone d'Angré</small></li>
+  </ul>
+</section>
+
+<section class="contact" id="contact">
+  <svg class="contact__toit" viewBox="0 0 120 56" aria-hidden="true">
+    <path class="trace" d="M7 50 L46 11 L80 45" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="square"/>
+    <path class="trace" d="M62 48.5 H116" fill="none" stroke="currentColor" stroke-width="1.2"/>
+  </svg>
+  <div class="contact__contenu">
+    <p class="eyebrow">Réservation</p>
+    <h2>Il ne manque <span>que vous.</span></h2>
+    <p>Réservations sur WhatsApp au 07 14 37 00 32, appels au 07 09 78 13 06. Appartements dans toute la zone d'Angré, à Cocody.</p>
+    <div class="hero__ctas">
+      <a class="btn btn--plein magnetique" href="https://wa.me/2250714370032"><svg aria-hidden="true"><use href="#i-bulle"/></svg>Écrire sur WhatsApp</a>
+      <a class="btn btn--trait" href="tel:+2250709781306"><svg aria-hidden="true"><use href="#i-tel"/></svg>07 09 78 13 06</a>
+    </div>
+  </div>
+  <div class="contact__deco" aria-hidden="true">
+    <span class="f-rond" style="background:var(--soleil)"></span>
+    <span class="f-tri" style="background:var(--corail)"></span>
+    <span class="f-carre" style="background:var(--rose)"></span>
+  </div>
+</section>
+
+<section class="planche">
+  <p class="eyebrow">Planche de direction artistique · Piste A</p>
+  <h3>Mosaïque : le confort, pièce par pièce</h3>
+  <div class="nuancier">
+    <div class="pastille"><div class="pastille__c" style="background:#f5efe4"></div><div class="pastille__t"><b>Crème</b>#F5EFE4 · fond</div></div>
+    <div class="pastille"><div class="pastille__c" style="background:#ebb329"></div><div class="pastille__t"><b>Soleil</b>#EBB329 · l'or du logo</div></div>
+    <div class="pastille"><div class="pastille__c" style="background:#e04a2f"></div><div class="pastille__t"><b>Corail</b>#E04A2F · accents</div></div>
+    <div class="pastille"><div class="pastille__c" style="background:#2550c0"></div><div class="pastille__t"><b>Cobalt</b>#2550C0 · grands aplats</div></div>
+    <div class="pastille"><div class="pastille__c" style="background:#f3c5b5"></div><div class="pastille__t"><b>Rose</b>#F3C5B5 · douceur</div></div>
+    <div class="pastille"><div class="pastille__c" style="background:#151412"></div><div class="pastille__t"><b>Encre</b>#151412 · textes, traits</div></div>
+  </div>
+  <div class="typos">
+    <div class="typo"><p class="eyebrow">Titres</p><p class="typo__ex" style="font-family:var(--f-display);font-weight:650;text-transform:uppercase;letter-spacing:-.03em">Pièce</p><p>Unbounded, une géométrique large et ronde, en capitales serrées.</p></div>
+    <div class="typo"><p class="eyebrow">Textes</p><p class="typo__ex" style="font-family:var(--f-texte);font-weight:600">Bienvenue</p><p>Onest, une linéale moderne et très lisible.</p></div>
+  </div>
+  <div class="signature">
+    <p class="eyebrow">Animation signature</p>
+    <p>Une mosaïque de neuf tuiles, inspirée du Bauhaus, mêle formes pleines (cercle, demi-lune, quart de cercle, rayures, toit du logo) et photos dans des cadres en arche ou en cercle. Les tuiles apparaissent une à une, puis échangent leur place toutes les trois secondes avec une animation fluide (GSAP Flip) : le lieu se recompose sans cesse, « pièce par pièce ». Au survol, chaque forme pivote.</p>
+    <p>Autres effets : ruban défilant dont la vitesse suit le scroll, prix qui comptent jusqu'à leur valeur, appartements présentés comme des affiches en défilement horizontal épinglé, liste du confort qui se remplit de couleur au survol, toit du logo qui se dessine en grand dans la section contact.</p>
+  </div>
+</section>
+
+<footer class="pied">
+  <a href="#" class="logo" aria-label="Perfect Résidence">
+    <svg viewBox="0 0 120 56" aria-hidden="true"><use href="#toit"/></svg>
+    <span class="logo__txt"><span class="logo__nom">Perfect</span><span class="logo__sous">Résidence</span></span>
+  </a>
+  <div class="pied__liens"><a href="https://wa.me/2250714370032">WhatsApp · 07 14 37 00 32</a><a href="tel:+2250709781306">Appel · 07 09 78 13 06</a><a href="https://www.tiktok.com/@peferctresi">TikTok</a><span>Angré, Cocody · Abidjan</span></div>
+  <p class="pied__digifaz">Proposition de site réalisée par Digifaz</p>
+</footer>
+
+<p class="badge">Maquette · Piste A · Mosaïque<a href="index.html">Toutes les pistes</a></p>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/Flip.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/DrawSVGPlugin.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.3.26/dist/lenis.min.js"></script>
+<script>
+  gsap.registerPlugin(ScrollTrigger, Flip, DrawSVGPlugin);
+  const reduit = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const survol = matchMedia("(hover: hover)").matches;
+
+  if (!reduit) {
+    const lenis = new Lenis({ autoRaf: false, lerp: 0.1 });
+    lenis.on("scroll", ScrollTrigger.update);
+    gsap.ticker.add((t) => lenis.raf(t * 1000));
+    gsap.ticker.lagSmoothing(0);
+  }
+
+  // Ruban : on duplique le groupe pour une boucle sans couture
+  const piste = document.querySelector(".ruban__piste");
+  piste.appendChild(piste.firstElementChild.cloneNode(true));
+
+  const mosaique = document.querySelector(".mosaique");
+  const tuiles = () => gsap.utils.toArray(".mosaique .t");
+
+  // ---------- Intro ----------
+  document.fonts.ready.then(() => {
+    if (reduit) return;
+    gsap.timeline({ defaults: { ease: "expo.out" } })
+      .from(tuiles(), { scale: 0, rotation: -90, duration: 1.1, stagger: { each: 0.07, from: "random" }, ease: "back.out(1.5)" }, 0)
+      .from(".hero__titre .ligne", { y: 50, clipPath: "inset(0 0 100% 0)", duration: 1.1, stagger: 0.1 }, 0.2)
+      .from(".o-soleil", { rotation: -180, scale: 0, duration: 1.2, ease: "back.out(2)" }, 0.7)
+      .from([".hero__kicker", ".hero__sous", ".hero__ctas", ".hero__prix"], { y: 20, opacity: 0, duration: 0.9, stagger: 0.07 }, 0.5)
+      .add(lancerMelange, 1.6);
+  });
+
+  // ---------- Signature : la mosaique se recompose (GSAP Flip) ----------
+  let mosaiqueVisible = true;
+  new IntersectionObserver(([e]) => { mosaiqueVisible = e.isIntersecting; }).observe(mosaique);
+  function echanger(a, b) {
+    const repere = document.createElement("div");
+    a.before(repere); b.before(a); repere.replaceWith(b);
+  }
+  function melanger() {
+    if (!mosaiqueVisible || document.hidden) return;
+    const liste = tuiles();
+    const i = gsap.utils.random(0, liste.length - 1, 1);
+    let j = gsap.utils.random(0, liste.length - 1, 1);
+    if (j === i) j = (i + 4) % liste.length;
+    const etat = Flip.getState(liste);
+    echanger(liste[i], liste[j]);
+    Flip.from(etat, { duration: 1, ease: "power3.inOut" });
+    // Une forme au hasard pivote d'un quart de tour
+    const formes = gsap.utils.toArray(".mosaique .t__forme");
+    gsap.to(gsap.utils.random(formes), { rotation: "+=90", duration: 1, ease: "power3.inOut" });
+  }
+  function lancerMelange() { setInterval(melanger, 2800); }
+  if (!reduit && survol) {
+    tuiles().forEach((t) => {
+      const forme = t.querySelector(".t__forme");
+      if (forme) t.addEventListener("pointerenter", () => gsap.to(forme, { rotation: "+=90", duration: 0.9, ease: "power3.inOut" }));
+    });
+  }
+
+  if (!reduit) {
+    // ---------- Ruban : vitesse liee au scroll ----------
+    const boucle = gsap.to(".ruban__piste", { xPercent: -50, duration: 22, ease: "none", repeat: -1 });
+    let vise = 1;
+    ScrollTrigger.create({ onUpdate: (self) => { vise = self.direction * (1 + Math.min(Math.abs(self.getVelocity()) / 300, 6)); } });
+    gsap.ticker.add(() => {
+      const ts = boucle.timeScale();
+      boucle.timeScale(ts + (vise - ts) * 0.08);
+      vise += (Math.sign(vise) - vise) * 0.04;
+    });
+
+    // ---------- Tarifs : formes qui pivotent et prix qui comptent ----------
+    gsap.utils.toArray(".bande").forEach((b) => {
+      gsap.fromTo(b.querySelectorAll(".bande__forme > span"), { rotation: -90, scale: 0.6 }, {
+        rotation: 0, scale: 1, ease: "none",
+        scrollTrigger: { trigger: b, start: "top bottom", end: "center 55%", scrub: true }
+      });
+      const c = b.querySelector(".compteur"), obj = { v: 0 };
+      gsap.to(obj, {
+        v: +c.dataset.valeur, duration: 1.6, ease: "power3.out",
+        onUpdate: () => { c.textContent = (Math.round(obj.v / 500) * 500).toLocaleString("fr-FR").replace(/\s/g, "\u00a0"); },
+        scrollTrigger: { trigger: b, start: "top 70%" }
+      });
+    });
+
+    // ---------- Appartements : affiches en defilement horizontal ----------
+    const rail = document.querySelector(".apparts__piste");
+    const distance = () => rail.scrollWidth - innerWidth;
+    const defile = gsap.to(rail, {
+      x: () => -distance(), ease: "none",
+      scrollTrigger: { trigger: ".apparts", start: "top top", end: () => "+=" + distance(), pin: true, scrub: 1, invalidateOnRefresh: true }
+    });
+    gsap.utils.toArray(".affiche .tourne").forEach((f) => {
+      gsap.fromTo(f, { rotation: -45 }, {
+        rotation: 45, ease: "none",
+        scrollTrigger: { trigger: f.closest(".affiche"), containerAnimation: defile, start: "left right", end: "right left", scrub: true }
+      });
+    });
+
+    // ---------- Confort : les puces entrent en tournant ----------
+    gsap.from(".liste .puce", { rotation: -180, scale: 0, duration: 1, ease: "back.out(1.6)", stagger: 0.08, scrollTrigger: { trigger: ".liste", start: "top 80%" } });
+
+    // ---------- Contact : le toit du logo se dessine ----------
+    gsap.from(".contact__toit .trace", { drawSVG: 0, ease: "none", scrollTrigger: { trigger: ".contact", start: "top 85%", end: "center 60%", scrub: true } });
+    gsap.from(".contact__deco > *", { y: 60, rotation: 90, opacity: 0, duration: 1, ease: "back.out(1.6)", stagger: 0.1, scrollTrigger: { trigger: ".contact__deco", start: "top 95%" } });
+
+    // ---------- Boutons magnetiques (ordinateur) ----------
+    if (survol) {
+      document.querySelectorAll(".magnetique").forEach((btn) => {
+        const qx = gsap.quickTo(btn, "x", { duration: 0.5, ease: "power3.out" });
+        const qy = gsap.quickTo(btn, "y", { duration: 0.5, ease: "power3.out" });
+        btn.addEventListener("pointermove", (e) => {
+          const r = btn.getBoundingClientRect();
+          qx((e.clientX - r.left - r.width / 2) * 0.3); qy((e.clientY - r.top - r.height / 2) * 0.4);
+        });
+        btn.addEventListener("pointerleave", () => { qx(0); qy(0); });
+      });
+    }
+  }
+</script>
+</body>
+</html>

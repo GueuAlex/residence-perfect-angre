@@ -1,0 +1,584 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Perfect Résidence · Piste C · Stickers</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,400..800&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+<style>
+  /* Tokens du theme - piste C */
+  :root {
+    --jaune: #f2b51d;
+    --noir: #121110;
+    --creme: #fff6e6;
+    --rose: #ff8db0;
+    --menthe: #8fe3b8;
+    --blanc: #ffffff;
+
+    --f-display: "Bricolage Grotesque", system-ui, sans-serif;
+    --f-main: "Caveat", cursive;
+
+    --gouttiere: clamp(16px, 4vw, 56px);
+    --trait: 2.5px solid var(--noir);
+    --ombre: 5px 6px 0 var(--noir);
+    --ease-rebond: cubic-bezier(.34, 1.56, .64, 1);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html.lenis, html.lenis body { height: auto; }
+  .lenis.lenis-smooth { scroll-behavior: auto !important; }
+  body {
+    background: var(--creme); color: var(--noir);
+    font-family: var(--f-display); font-size: 16px; line-height: 1.55;
+    -webkit-font-smoothing: antialiased; overflow-x: hidden;
+  }
+  a { color: inherit; text-decoration: none; }
+  img { display: block; max-width: 100%; }
+  button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
+  .main { font-family: var(--f-main); font-weight: 700; }
+  .eyebrow { font-size: 13px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; }
+  .titre-xl { font-weight: 800; font-stretch: condensed; text-transform: uppercase; line-height: .86; letter-spacing: -.01em; }
+
+  /* Navigation */
+  .nav { position: absolute; top: 0; left: 0; right: 0; z-index: 30; display: flex; align-items: center; justify-content: space-between; padding: 16px var(--gouttiere); }
+  .logo { display: inline-flex; align-items: center; gap: 10px; }
+  .logo svg { width: 46px; height: auto; }
+  .logo__txt { display: flex; flex-direction: column; line-height: 1; }
+  .logo__nom { font-weight: 800; font-stretch: condensed; font-size: 24px; text-transform: uppercase; letter-spacing: .02em; }
+  .logo__sous { font-family: var(--f-main); font-weight: 700; font-size: 17px; margin-top: -2px; }
+  .nav__cta { display: inline-flex; align-items: center; gap: 8px; padding: 11px 18px; border-radius: 999px; background: var(--noir); color: var(--jaune); font-weight: 700; font-size: 15px; border: var(--trait); box-shadow: 3px 4px 0 var(--creme); }
+  .nav__cta svg { width: 17px; height: 17px; }
+
+  /* Hero : le collage */
+  .hero {
+    position: relative; height: 100svh; min-height: 700px; overflow: hidden;
+    background-color: var(--jaune);
+    background-image: radial-gradient(rgba(18, 17, 16, .16) 1.3px, transparent 1.5px);
+    background-size: 22px 22px;
+    display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;
+    padding: 96px var(--gouttiere) 40px;
+  }
+  .hero__titre { position: relative; z-index: 5; font-size: min(25vw, 36svh); }
+  .hero__titre .char { display: inline-block; }
+  .hero__titre .r-blanc { color: var(--blanc); -webkit-text-stroke: 3px var(--noir); paint-order: stroke fill; }
+  .hero__residence { position: absolute; z-index: 6; right: -2%; bottom: -20%; font-size: .3em; line-height: 1; text-transform: none; font-stretch: normal; letter-spacing: 0; transform: rotate(-7deg); }
+  .hero__residence span { display: inline-block; }
+  .hero__souligne { position: absolute; left: 0; bottom: -16%; width: 100%; height: .3em; overflow: visible; }
+  .hero__bas { position: relative; z-index: 7; margin-top: clamp(64px, 12svh, 120px); display: flex; flex-direction: column; align-items: center; gap: 18px; }
+  .hero__sous { font-size: clamp(17px, 1.5vw, 21px); font-weight: 500; max-width: 520px; }
+  .hero__ctas { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; }
+  .btn { display: inline-flex; align-items: center; gap: 10px; padding: 16px 26px; border-radius: 999px; font-weight: 700; font-size: 16px; border: var(--trait); box-shadow: var(--ombre); transition: box-shadow .25s, translate .25s; }
+  .btn svg { width: 19px; height: 19px; }
+  .btn:hover { box-shadow: 1px 2px 0 var(--noir); translate: 4px 4px; }
+  .btn--noir { background: var(--noir); color: var(--jaune); }
+  .btn--blanc { background: var(--blanc); }
+
+  .objet { position: absolute; z-index: 4; left: var(--x); top: var(--y); width: var(--w); }
+  .objet__drag { touch-action: none; }
+  @media (hover: none) { .objet__drag { touch-action: auto; } }
+  .polaroid { background: var(--blanc); padding: 8% 8% 22%; border: var(--trait); box-shadow: var(--ombre); position: relative; }
+  .polaroid img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; border: 2px solid var(--noir); pointer-events: none; }
+  .polaroid figcaption { position: absolute; left: 0; right: 0; bottom: 4%; font-family: var(--f-main); font-weight: 700; font-size: clamp(16px, 1.5vw, 24px); }
+  .scotch { position: absolute; width: 46%; height: 13%; left: 27%; top: -6%; background: rgba(255, 246, 230, .72); border: 1px solid rgba(18, 17, 16, .12); transform: rotate(-4deg); }
+  .sticker { display: grid; place-items: center; text-align: center; font-weight: 800; line-height: 1; filter: drop-shadow(4px 5px 0 var(--noir)); }
+  .sticker svg { width: 100%; height: auto; overflow: visible; }
+  .sticker--badge text { font-family: var(--f-display); font-weight: 800; font-size: 13.5px; letter-spacing: 2.4px; text-transform: uppercase; }
+  .badge-tourne { transform-box: view-box; transform-origin: 50% 50%; animation: tourne 16s linear infinite; }
+  @keyframes tourne { to { transform: rotate(360deg); } }
+  .pastille-txt { position: absolute; inset: 0; display: grid; place-items: center; font-weight: 800; font-stretch: condensed; text-transform: uppercase; line-height: .95; }
+  .pilule { padding: 12px 20px; border-radius: 999px; background: var(--menthe); border: var(--trait); font-weight: 800; font-size: clamp(14px, 1.3vw, 18px); white-space: nowrap; }
+  .confetti { position: absolute; z-index: 2; pointer-events: none; }
+  .fleche { position: absolute; z-index: 8; pointer-events: none; }
+
+  @media (hover: hover) { .objet__drag { cursor: grab; } .objet__drag:active { cursor: grabbing; } }
+  @media (max-width: 760px) {
+    .hero { justify-content: flex-start; padding-top: 22svh; min-height: 640px; }
+    .hero__titre { font-size: 33vw; }
+    .hero__residence { right: 0; bottom: -30%; font-size: .32em; }
+    .hero__bas { position: absolute; left: var(--gouttiere); right: var(--gouttiere); bottom: 28px; margin: 0; }
+    .hero__sous { font-size: 16px; }
+    .objet { left: var(--xm, var(--x)); top: var(--ym, var(--y)); width: var(--wm, var(--w)); }
+    .cache-mobile { display: none !important; }
+    .btn { padding: 14px 20px; font-size: 15px; }
+  }
+
+  /* Rubans croises */
+  .rubans { position: relative; height: clamp(150px, 18vw, 240px); overflow: hidden; background: var(--creme); }
+  .ruban { position: absolute; left: -5%; width: 110%; overflow: hidden; padding: 14px 0; border-block: var(--trait); }
+  .ruban--noir { top: 22%; background: var(--noir); color: var(--jaune); transform: rotate(-3deg); }
+  .ruban--rose { top: 40%; background: var(--rose); transform: rotate(2.5deg); }
+  .ruban__piste { display: flex; width: max-content; }
+  .ruban__piste span { font-weight: 800; font-stretch: condensed; text-transform: uppercase; font-size: clamp(26px, 3.4vw, 48px); white-space: nowrap; padding-right: .4em; }
+  .ruban__piste span::after { content: "✶"; padding-left: .4em; }
+
+  /* Le kit du sejour */
+  .kit { position: relative; padding: clamp(80px, 10vw, 150px) var(--gouttiere); max-width: 1440px; margin: 0 auto; }
+  .kit__tete { display: flex; justify-content: space-between; align-items: end; gap: 24px; flex-wrap: wrap; }
+  .kit h2 { font-size: clamp(52px, 9vw, 150px); }
+  .kit h2 em { font-style: normal; color: var(--rose); -webkit-text-stroke: 2.5px var(--noir); paint-order: stroke fill; }
+  .kit__tete p { max-width: 320px; font-size: 18px; font-weight: 500; }
+  .kit__tete .main { font-size: 26px; display: block; margin-top: 6px; transform: rotate(-3deg); }
+  .planche-stickers { position: relative; height: clamp(520px, 46vw, 640px); margin-top: 40px; border: var(--trait); border-radius: 28px; background: var(--blanc); background-image: radial-gradient(rgba(18, 17, 16, .1) 1.2px, transparent 1.4px); background-size: 20px 20px; }
+  .planche-stickers .objet { z-index: 2; }
+  .stk { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; text-align: center; border: var(--trait); box-shadow: var(--ombre); font-weight: 800; font-stretch: condensed; text-transform: uppercase; line-height: 1; padding: 18px; }
+  .stk svg { width: 44px; height: 44px; fill: none; stroke: currentColor; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+  .stk b { font-size: clamp(22px, 2.2vw, 32px); }
+  .stk small { font-family: var(--f-main); font-weight: 700; font-size: 19px; text-transform: none; font-stretch: normal; }
+  .stk--rond { border-radius: 50%; aspect-ratio: 1; }
+  .stk--carre { border-radius: 18px; aspect-ratio: 1; }
+  .stk--pilule { border-radius: 999px; flex-direction: row; gap: 12px; padding: 18px 28px; }
+  .stk--etoile { border: 0; box-shadow: none; padding: 0; aspect-ratio: 1; position: relative; }
+  .stk--etoile svg.forme { position: absolute; inset: 0; width: 100%; height: 100%; stroke: none; filter: drop-shadow(5px 6px 0 var(--noir)); }
+  .stk--etoile > *:not(.forme) { position: relative; }
+  @media (max-width: 760px) {
+    .planche-stickers { height: auto; display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 16px 10px; padding: 26px 8px; }
+    .stk { padding: 12px; }
+    .stk b { font-size: 20px; }
+    .stk small { font-size: 16px; }
+    .stk svg { width: 34px; height: 34px; }
+    .stk--pilule { padding: 14px 20px; }
+    .planche-stickers .objet { position: relative; left: auto; top: auto; width: var(--wm); }
+  }
+
+  /* Tarifs : les tickets */
+  .tarifs { background: var(--noir); color: var(--creme); padding: clamp(80px, 10vw, 150px) var(--gouttiere); overflow: hidden; position: relative; }
+  .tarifs__tete { max-width: 1280px; margin: 0 auto; }
+  .tarifs h2 { font-size: clamp(52px, 9vw, 150px); color: var(--jaune); }
+  .tarifs__tete .main { font-size: clamp(24px, 2.4vw, 32px); color: var(--rose); display: inline-block; transform: rotate(-3deg); }
+  .tickets { display: flex; justify-content: center; gap: clamp(20px, 4vw, 56px); flex-wrap: wrap; margin-top: clamp(40px, 6vw, 80px); }
+  .ticket {
+    position: relative; width: min(100%, 520px); display: grid; grid-template-columns: 1fr auto; color: var(--noir);
+    -webkit-mask: radial-gradient(circle at 0 50%, transparent 18px, #000 19px) left / 51% 100% no-repeat, radial-gradient(circle at 100% 50%, transparent 18px, #000 19px) right / 51% 100% no-repeat;
+            mask: radial-gradient(circle at 0 50%, transparent 18px, #000 19px) left / 51% 100% no-repeat, radial-gradient(circle at 100% 50%, transparent 18px, #000 19px) right / 51% 100% no-repeat;
+  }
+  .ticket--jaune { background: var(--jaune); }
+  .ticket--rose { background: var(--rose); }
+  .ticket__corps { padding: 30px 26px 26px 40px; }
+  .ticket__corps .eyebrow { display: inline-block; padding: 4px 10px; border: 2px solid var(--noir); border-radius: 999px; }
+  .ticket__prix { font-size: clamp(64px, 7.4vw, 110px); margin: 12px 0 6px; white-space: nowrap; }
+  .ticket__prix small { font-size: .26em; margin-left: .15em; }
+  .ticket__corps p:last-child { font-weight: 500; }
+  .ticket__talon { width: 92px; border-left: 3px dashed var(--noir); display: grid; place-items: center; padding: 20px 0; }
+  .ticket__talon span { writing-mode: vertical-rl; transform: rotate(180deg); font-weight: 800; font-stretch: condensed; letter-spacing: .14em; text-transform: uppercase; font-size: 14px; }
+  .ticket__code { display: flex; gap: 2px; height: 40px; margin-top: 14px; }
+  .ticket__code i { width: 3px; background: var(--noir); }
+  .tarifs__long { position: absolute; display: grid; right: clamp(8px, 6vw, 120px); top: clamp(60px, 8vw, 120px); width: clamp(140px, 15vw, 200px); }
+  @media (max-width: 760px) { .tarifs__long { position: relative; right: auto; top: auto; margin: 36px auto 0; } .ticket__talon { width: 64px; } }
+
+  /* Appartements : la pile de photos */
+  .apparts { padding: clamp(80px, 10vw, 150px) var(--gouttiere); max-width: 1440px; margin: 0 auto; display: grid; grid-template-columns: .9fr 1.1fr; gap: clamp(40px, 6vw, 100px); align-items: center; }
+  .pile { position: relative; width: min(100%, 400px); aspect-ratio: 4 / 5.2; justify-self: center; }
+  .carte { position: absolute; inset: 0; background: var(--blanc); padding: 6% 6% 18%; border: var(--trait); box-shadow: var(--ombre); touch-action: pan-y; }
+  .carte img { width: 100%; height: 100%; object-fit: cover; border: 2px solid var(--noir); pointer-events: none; }
+  .carte figcaption { position: absolute; left: 0; right: 0; bottom: 3.5%; text-align: center; font-family: var(--f-main); font-weight: 700; font-size: 24px; }
+  .pile__aide { display: flex; justify-content: center; align-items: center; gap: 14px; margin-top: 26px; }
+  .pile__aide .main { font-size: 24px; }
+  .pile__btn { width: 54px; height: 54px; border-radius: 50%; background: var(--jaune); border: var(--trait); box-shadow: 3px 4px 0 var(--noir); display: grid; place-items: center; }
+  .pile__btn svg { width: 22px; height: 22px; }
+  .apparts h2 { font-size: clamp(52px, 8vw, 130px); }
+  .apparts h2 span { color: var(--rose); -webkit-text-stroke: 2.5px var(--noir); paint-order: stroke fill; }
+  .formats { list-style: none; margin-top: 30px; border-top: var(--trait); }
+  .formats li { display: grid; grid-template-columns: auto 1fr; gap: 4px 18px; padding: 20px 0; border-bottom: var(--trait); align-items: baseline; }
+  .formats b { font-weight: 800; font-stretch: condensed; text-transform: uppercase; font-size: clamp(32px, 3.6vw, 52px); line-height: 1; }
+  .formats p { grid-column: 2; font-size: 17px; font-weight: 500; }
+  .formats .num { display: inline-grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; border: var(--trait); font-weight: 800; background: var(--menthe); align-self: center; grid-row: span 2; }
+  .formats li:nth-child(2) .num { background: var(--rose); }
+  .formats li:nth-child(3) .num { background: var(--jaune); }
+  @media (max-width: 860px) { .apparts { grid-template-columns: 1fr; } }
+
+  /* Contact */
+  .contact { position: relative; background: var(--rose); padding: clamp(90px, 12vw, 170px) var(--gouttiere); overflow: hidden; border-top: var(--trait); text-align: center; }
+  .contact h2 { font-size: clamp(64px, 14vw, 240px); position: relative; z-index: 2; }
+  .contact h2 .blanc { color: var(--blanc); -webkit-text-stroke: 3px var(--noir); paint-order: stroke fill; }
+  .contact p { position: relative; z-index: 2; max-width: 520px; margin: 22px auto 0; font-size: 18px; font-weight: 500; }
+  .contact .hero__ctas { margin-top: 30px; position: relative; z-index: 2; }
+  .contact__tiktok { display: inline-flex; align-items: center; gap: 10px; margin-top: 30px; position: relative; z-index: 2; font-family: var(--f-main); font-size: 26px; }
+  .contact__tiktok svg { width: 22px; height: 22px; }
+  .contact__badge { position: absolute; z-index: 3; width: clamp(110px, 13vw, 180px); left: clamp(8px, 7vw, 120px); top: clamp(30px, 6vw, 80px); display: block; }
+  .contact__badge svg { width: 100%; height: auto; overflow: visible; }
+
+  /* Planche DA */
+  .planche { background: var(--creme); padding: clamp(64px, 10vw, 140px) var(--gouttiere); border-top: var(--trait); }
+  .planche h3 { font-size: clamp(36px, 5vw, 64px); margin: 12px 0 36px; }
+  .nuancier { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 14px; }
+  .pastille { border: var(--trait); border-radius: 18px; overflow: hidden; background: var(--blanc); box-shadow: 3px 4px 0 var(--noir); }
+  .pastille__c { height: 86px; border-bottom: var(--trait); }
+  .pastille__t { padding: 10px 12px; font-size: 12px; line-height: 1.4; }
+  .pastille__t b { display: block; font-weight: 800; }
+  .typos { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; margin-top: 28px; }
+  .typo, .signature { background: var(--blanc); padding: 28px; border: var(--trait); border-radius: 22px; box-shadow: 3px 4px 0 var(--noir); }
+  .typo__ex { font-size: clamp(40px, 8vw, 60px); line-height: 1; margin: 10px 0; }
+  .signature { margin-top: 14px; max-width: 1000px; }
+  .signature p + p { margin-top: 10px; }
+  @media (max-width: 720px) { .typos { grid-template-columns: minmax(0, 1fr); } }
+
+  .pied { background: var(--noir); color: rgba(255, 246, 230, .75); padding: 64px var(--gouttiere) 96px; display: flex; justify-content: space-between; gap: 24px; flex-wrap: wrap; align-items: end; }
+  .pied .logo { color: var(--creme); }
+  .pied .logo__nom { font-size: 34px; }
+  .pied .logo__sous { color: var(--jaune); font-size: 22px; }
+  .pied__liens { display: flex; gap: 22px; flex-wrap: wrap; font-size: 15px; }
+  .pied__digifaz { width: 100%; padding-top: 24px; border-top: 1px solid rgba(255, 246, 230, .16); font-size: 12px; letter-spacing: .08em; opacity: .7; }
+
+  .badge-maquette { position: fixed; left: 12px; bottom: 12px; z-index: 60; padding: 8px 14px; border-radius: 999px; font-size: 11px; letter-spacing: .04em; background: var(--noir); color: var(--jaune); }
+  .badge-maquette a { text-decoration: underline; text-underline-offset: 2px; color: var(--creme); margin-left: 6px; }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="toit" viewBox="0 0 120 56">
+    <path d="M7 50 L46 11 L80 45" fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="square"/>
+    <path d="M62 48.5 H116" stroke="currentColor" stroke-width="7"/>
+    <g fill="currentColor"><rect x="39" y="22" width="6" height="6"/><rect x="47" y="22" width="6" height="6"/><rect x="39" y="30" width="6" height="6"/><rect x="47" y="30" width="6" height="6"/></g>
+  </symbol>
+  <symbol id="i-bulle" viewBox="0 0 24 24"><path d="M4 18.5 5.2 15A8 8 0 1 1 8.6 18.6Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M9 10.5c.5 1.8 2 3.3 3.8 3.9" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+  <symbol id="i-tel" viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></symbol>
+  <symbol id="i-fleche" viewBox="0 0 24 24"><path d="M4 12h15M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-note" viewBox="0 0 24 24"><path d="M14 3v11.5a3.5 3.5 0 1 1-2-3.2V3h2Zm0 0c.5 2.5 2.5 4 5 4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+</svg>
+
+<header class="hero">
+  <nav class="nav">
+    <a href="#" class="logo" aria-label="Perfect Résidence, accueil">
+      <svg viewBox="0 0 120 56" aria-hidden="true"><use href="#toit"/></svg>
+      <span class="logo__txt"><span class="logo__nom">Perfect</span><span class="logo__sous">Résidence</span></span>
+    </a>
+    <a class="nav__cta" href="https://wa.me/2250714370032"><svg aria-hidden="true"><use href="#i-bulle"/></svg>Réserver</a>
+  </nav>
+
+  <!-- Confettis decoratifs -->
+  <svg class="confetti" style="left:8%;top:14%;width:34px" viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="14" fill="#ff8db0" stroke="#121110" stroke-width="3"/></svg>
+  <svg class="confetti" style="left:46%;top:13%;width:60px" viewBox="0 0 80 30" aria-hidden="true"><path d="M4 18c8-14 14 10 22-2s14 10 22-2 14 10 22-2" fill="none" stroke="#121110" stroke-width="4" stroke-linecap="round"/></svg>
+  <svg class="confetti" style="right:6%;top:38%;width:30px" viewBox="0 0 40 40" aria-hidden="true"><path d="M20 4 36 34H4Z" fill="#8fe3b8" stroke="#121110" stroke-width="3" stroke-linejoin="round"/></svg>
+  <svg class="confetti" style="left:30%;bottom:22%;width:26px" viewBox="0 0 40 40" aria-hidden="true"><rect x="7" y="7" width="26" height="26" fill="#fff" stroke="#121110" stroke-width="3" transform="rotate(20 20 20)"/></svg>
+
+  <h1 class="hero__titre titre-xl" aria-label="Perfect Résidence">
+    <span class="hero__mot">PE<span class="r-blanc">R</span>FECT</span>
+    <span class="hero__residence main" aria-hidden="true"><span>Résidence</span>
+      <svg class="hero__souligne" viewBox="0 0 300 30" preserveAspectRatio="none"><path d="M6 18C60 6 120 26 180 14S270 8 294 16" fill="none" stroke="#ff8db0" stroke-width="7" stroke-linecap="round"/></svg>
+    </span>
+  </h1>
+
+  <!-- Polaroids et stickers deplacables -->
+  <div class="objet" style="--x:5%;--y:47%;--w:min(16vw,240px);--xm:3%;--ym:47%;--wm:34vw" data-r="-9" data-vitesse="-30">
+    <div class="objet__drag"><figure class="polaroid"><span class="scotch"></span><img src="assets/chambre-plaid-vert.jpg" alt="Chambre avec plaid vert et télévision murale"><figcaption>cocooning ♡</figcaption></figure></div>
+  </div>
+  <div class="objet" style="--x:78%;--y:44%;--w:min(15vw,220px);--xm:62%;--ym:49%;--wm:33vw" data-r="8" data-vitesse="-50">
+    <div class="objet__drag"><figure class="polaroid"><span class="scotch"></span><img src="assets/studio-lit-canape.jpg" alt="Studio avec lit double et canapé blanc"><figcaption>le studio</figcaption></figure></div>
+  </div>
+  <div class="objet cache-mobile" style="--x:66%;--y:12%;--w:min(11vw,170px)" data-r="-6" data-vitesse="-20">
+    <div class="objet__drag"><figure class="polaroid"><span class="scotch"></span><img src="assets/chambre-tete-de-lit-capitonnee.jpg" alt="Chambre avec tête de lit capitonnée" style="filter:saturate(.8) hue-rotate(-6deg)"><figcaption>so chic</figcaption></figure></div>
+  </div>
+  <div class="objet" style="--x:15%;--y:16%;--w:min(11vw,150px);--xm:5%;--ym:11%;--wm:27vw" data-r="-12" data-vitesse="-60">
+    <div class="objet__drag sticker sticker--badge">
+      <svg viewBox="0 0 160 160" role="img" aria-label="15 000 F la journée, 20 000 F les 24 heures">
+        <circle cx="80" cy="80" r="78" fill="#fff" stroke="#121110" stroke-width="3"/>
+        <defs><path id="cercle-txt" d="M80 80m-58 0a58 58 0 1 1 116 0a58 58 0 1 1-116 0"/></defs>
+        <g class="badge-tourne"><text fill="#121110"><textPath href="#cercle-txt">15 000 F la journée ✶ 20 000 F les 24 h ✶</textPath></text></g>
+        <circle cx="80" cy="80" r="34" fill="#f2b51d" stroke="#121110" stroke-width="3"/>
+        <svg x="56" y="66" width="48" height="24" viewBox="0 0 120 56"><use href="#toit" style="color:#121110"/></svg>
+      </svg>
+    </div>
+  </div>
+  <div class="objet" style="--x:84%;--y:13%;--w:min(10vw,140px);--xm:70%;--ym:12%;--wm:25vw" data-r="10" data-vitesse="-40">
+    <div class="objet__drag sticker" style="position:relative">
+      <svg viewBox="-100 -100 200 200" aria-hidden="true"><path class="etoile-forme" data-branches="14" data-r1="96" data-r2="74" fill="#ff8db0" stroke="#121110" stroke-width="4" stroke-linejoin="round"/></svg>
+      <span class="pastille-txt" style="font-size:clamp(14px,1.4vw,20px)">Netflix<br>+ Canal+</span>
+    </div>
+  </div>
+  <div class="objet cache-mobile" style="--x:27%;--y:15%;--w:auto" data-r="-5" data-vitesse="-25">
+    <div class="objet__drag"><span class="pilule">Wifi en option ✶</span></div>
+  </div>
+
+  <div class="hero__bas">
+    <p class="hero__sous">Appartements meublés à Angré, Cocody. Studio, chambre-salon ou 3 pièces : posez vos valises, tout est prêt.</p>
+    <div class="hero__ctas">
+      <a class="btn btn--noir" href="https://wa.me/2250714370032"><svg aria-hidden="true"><use href="#i-bulle"/></svg><span>Réserver<span class="cache-mobile"> sur WhatsApp</span></span></a>
+      <a class="btn btn--blanc" href="tel:+2250709781306"><svg aria-hidden="true"><use href="#i-tel"/></svg>Appeler</a>
+    </div>
+  </div>
+</header>
+
+<div class="rubans" aria-hidden="true">
+  <div class="ruban ruban--rose"><div class="ruban__piste"><span>Studio</span><span>Chambre-salon</span><span>3 pièces</span><span>Canal+</span><span>Netflix</span><span>Wifi en option</span></div></div>
+  <div class="ruban ruban--noir"><div class="ruban__piste"><span>Week-end à deux</span><span>Soirée Netflix</span><span>Mission pro</span><span>Escale à Abidjan</span><span>Pause en journée</span></div></div>
+</div>
+
+<section class="kit" id="kit">
+  <div class="kit__tete">
+    <h2 class="titre-xl">Le kit du<br>séjour <em>parfait</em></h2>
+    <p>Tout ce qu'il faut pour se sentir chez soi, et même un peu plus.<span class="main cache-mobile">↓ déplacez les stickers !</span></p>
+  </div>
+  <div class="planche-stickers">
+    <div class="objet" style="--x:4%;--y:10%;--w:200px;--wm:136px" data-r="-8">
+      <div class="objet__drag stk stk--rond" style="background:var(--jaune)"><svg viewBox="0 0 48 48"><rect x="6" y="10" width="36" height="24" rx="3"/><path d="M18 41h12M24 34v7"/></svg><b>Canal+</b><small>les matchs</small></div>
+    </div>
+    <div class="objet" style="--x:24%;--y:42%;--w:220px;--wm:150px" data-r="6">
+      <div class="objet__drag stk stk--etoile"><svg class="forme" viewBox="-100 -100 200 200"><path class="etoile-forme" data-branches="12" data-r1="98" data-r2="78" fill="#ff8db0" stroke="#121110" stroke-width="3"/></svg><svg viewBox="0 0 48 48"><path d="M13 20 17 43h14l4-23Z"/><path d="M21 20l1.2 23M27 20l-1.2 23"/><path d="M12 20a5 5 0 0 1 3-8.5 6 6 0 0 1 9-4 6 6 0 0 1 9 3.5 5 5 0 0 1 3 9"/></svg><b>Netflix</b><small>soirée ciné</small></div>
+    </div>
+    <div class="objet" style="--x:44%;--y:8%;--w:auto;--wm:auto" data-r="-4">
+      <div class="objet__drag stk stk--pilule" style="background:var(--menthe)"><svg viewBox="0 0 48 48"><path d="M6 19a26 26 0 0 1 36 0"/><path d="M12 26a17 17 0 0 1 24 0"/><path d="M18 33a8 8 0 0 1 12 0"/><circle cx="24" cy="39" r="1.6"/></svg><b>Wifi</b><small>en option</small></div>
+    </div>
+    <div class="objet" style="--x:50%;--y:52%;--w:180px;--wm:124px" data-r="9">
+      <div class="objet__drag stk stk--carre" style="background:var(--noir);color:var(--creme)"><svg viewBox="0 0 48 48"><path d="M24 6v36M8.4 15l31.2 18M8.4 33l31.2-18"/><path d="M19 9l5 4 5-4M19 39l5-4 5 4"/></svg><b>Clim</b><small>au frais</small></div>
+    </div>
+    <div class="objet" style="--x:72%;--y:12%;--w:210px;--wm:140px" data-r="5">
+      <div class="objet__drag stk stk--rond" style="background:var(--blanc)"><svg viewBox="0 0 48 48"><path d="M24 5 39 11v12c0 9-6.5 15.5-15 19-8.5-3.5-15-10-15-19V11Z"/><path d="M17 24l5 5 9-10"/></svg><b>Sécurité</b><small>garantie</small></div>
+    </div>
+    <div class="objet" style="--x:74%;--y:58%;--w:auto;--wm:auto" data-r="-7">
+      <div class="objet__drag stk stk--pilule" style="background:var(--jaune)"><svg viewBox="0 0 48 48"><path d="M24 43s-13-11.5-13-21.5a13 13 0 0 1 26 0C37 31.5 24 43 24 43Z"/><circle cx="24" cy="21" r="4.5"/></svg><b>Angré</b><small>très accessible</small></div>
+    </div>
+    <div class="objet" style="--x:6%;--y:66%;--w:auto;--wm:auto" data-r="3">
+      <div class="objet__drag stk stk--pilule" style="background:var(--creme)"><b>Toutes les commodités</b></div>
+    </div>
+  </div>
+</section>
+
+<section class="tarifs" id="tarifs">
+  <div class="tarifs__tete">
+    <p class="main">vos formules</p>
+    <h2 class="titre-xl">Choisissez<br>votre pass</h2>
+  </div>
+  <div class="tickets">
+    <article class="ticket ticket--jaune">
+      <div class="ticket__corps">
+        <p class="eyebrow">Pass journée</p>
+        <p class="ticket__prix titre-xl">15 000<small>F CFA</small></p>
+        <p>Une pause, une sieste ou une journée à deux.</p>
+        <div class="ticket__code" aria-hidden="true"></div>
+      </div>
+      <div class="ticket__talon"><span>Admis · 1 séjour parfait</span></div>
+    </article>
+    <article class="ticket ticket--rose">
+      <div class="ticket__corps">
+        <p class="eyebrow">Pass 24 heures</p>
+        <p class="ticket__prix titre-xl">20 000<small>F CFA</small></p>
+        <p>Une nuit complète, à votre rythme.</p>
+        <div class="ticket__code" aria-hidden="true"></div>
+      </div>
+      <div class="ticket__talon"><span>Admis · 1 séjour parfait</span></div>
+    </article>
+  </div>
+  <div class="tarifs__long sticker">
+    <svg viewBox="-100 -100 200 200" aria-hidden="true"><path class="etoile-forme" data-branches="16" data-r1="98" data-r2="82" fill="#8fe3b8" stroke="#121110" stroke-width="3"/></svg>
+    <span class="pastille-txt" style="font-size:clamp(15px,1.5vw,20px);color:var(--noir)">Long séjour<br>= réduction<br>avec wifi</span>
+  </div>
+</section>
+
+<section class="apparts" id="appartements">
+  <div>
+    <div class="pile" aria-label="Photos des appartements, faites glisser pour passer à la suivante">
+      <figure class="carte"><img src="assets/salon-tables-marbre.jpg" alt="Coin salon avec tables effet marbre et panneau en bois" style="object-position:60% 30%"><figcaption>le coin salon</figcaption></figure>
+      <figure class="carte"><img src="assets/chambre-tete-de-lit-capitonnee.jpg" alt="Chambre avec tête de lit capitonnée et coussins colorés" style="filter:saturate(.8) hue-rotate(-6deg)"><figcaption>so chic</figcaption></figure>
+      <figure class="carte"><img src="assets/studio-lit-canape.jpg" alt="Studio avec lit double, canapé blanc et tapis à vagues"><figcaption>le studio</figcaption></figure>
+      <figure class="carte"><img src="assets/chambre-plaid-vert.jpg" alt="Chambre avec plaid vert, télévision et étagère en bois"><figcaption>cocooning ♡</figcaption></figure>
+    </div>
+    <div class="pile__aide"><span class="main">glissez pour visiter</span><button class="pile__btn" type="button" aria-label="Photo suivante"><svg aria-hidden="true"><use href="#i-fleche"/></svg></button></div>
+  </div>
+  <div>
+    <p class="eyebrow">Les appartements</p>
+    <h2 class="titre-xl">Trois formats, <span>zéro stress</span></h2>
+    <ol class="formats">
+      <li><span class="num">1</span><b>Studio</b><p>Tout l'essentiel réuni dans une seule pièce. Idéal en solo ou à deux.</p></li>
+      <li><span class="num">2</span><b>Chambre-salon</b><p>Une chambre au calme et un vrai salon pour recevoir.</p></li>
+      <li><span class="num">3</span><b>3 pièces</b><p>De la place pour la famille ou entre amis.</p></li>
+    </ol>
+  </div>
+</section>
+
+<section class="contact" id="contact">
+  <a class="contact__badge" href="https://wa.me/2250714370032" aria-label="Écrire sur WhatsApp">
+    <svg viewBox="0 0 160 160" aria-hidden="true">
+      <circle cx="80" cy="80" r="78" fill="#121110"/>
+      <defs><path id="cercle-wa" d="M80 80m-58 0a58 58 0 1 1 116 0a58 58 0 1 1-116 0"/></defs>
+      <g class="badge-tourne"><text fill="#f2b51d" style="font-family:var(--f-display);font-weight:800;font-size:13.5px;letter-spacing:2.4px;text-transform:uppercase"><textPath href="#cercle-wa">Écrivez-nous sur WhatsApp ✶ Angré ✶ Cocody ✶</textPath></text></g>
+      <circle cx="80" cy="80" r="32" fill="#f2b51d"/>
+      <svg x="62" y="62" width="36" height="36" viewBox="0 0 24 24"><use href="#i-bulle" style="color:#121110"/></svg>
+    </svg>
+  </a>
+  <h2 class="titre-xl">On vous<br><span class="blanc">attend !</span></h2>
+  <p>Réservations sur WhatsApp au 07 14 37 00 32, appels au 07 09 78 13 06. Appartements dans toute la zone d'Angré, à Cocody.</p>
+  <div class="hero__ctas">
+    <a class="btn btn--noir" href="https://wa.me/2250714370032"><svg aria-hidden="true"><use href="#i-bulle"/></svg>Écrire sur WhatsApp</a>
+    <a class="btn btn--blanc" href="tel:+2250709781306"><svg aria-hidden="true"><use href="#i-tel"/></svg>07 09 78 13 06</a>
+  </div>
+  <a class="contact__tiktok" href="https://www.tiktok.com/@peferctresi"><svg aria-hidden="true"><use href="#i-note"/></svg>Plus de 12 000 abonnés nous suivent sur TikTok</a>
+</section>
+
+<section class="planche">
+  <p class="eyebrow">Planche de direction artistique · Piste C</p>
+  <h3 class="titre-xl">Stickers : un séjour qui a du peps</h3>
+  <div class="nuancier">
+    <div class="pastille"><div class="pastille__c" style="background:#f2b51d"></div><div class="pastille__t"><b>Jaune</b>#F2B51D · l'or du logo, avivé</div></div>
+    <div class="pastille"><div class="pastille__c" style="background:#121110"></div><div class="pastille__t"><b>Noir</b>#121110 · traits, textes</div></div>
+    <div class="pastille"><div class="pastille__c" style="background:#fff6e6"></div><div class="pastille__t"><b>Crème</b>#FFF6E6 · fonds clairs</div></div>
+    <div class="pastille"><div class="pastille__c" style="background:#ff8db0"></div><div class="pastille__t"><b>Rose</b>#FF8DB0 · stickers, accents</div></div>
+    <div class="pastille"><div class="pastille__c" style="background:#8fe3b8"></div><div class="pastille__t"><b>Menthe</b>#8FE3B8 · stickers</div></div>
+  </div>
+  <div class="typos">
+    <div class="typo"><p class="eyebrow">Titres</p><p class="typo__ex titre-xl">Perfect</p><p>Bricolage Grotesque condensée, très grasse, en capitales.</p></div>
+    <div class="typo"><p class="eyebrow">Notes à la main</p><p class="typo__ex main">so chic ♡</p><p>Caveat, pour les légendes et les petits mots, avec parcimonie.</p></div>
+  </div>
+  <div class="signature">
+    <p class="eyebrow">Animation signature</p>
+    <p>Un collage pop sur fond jaune pointillé. Les lettres de « PERFECT » tombent et rebondissent, « Résidence » s'écrit à la main et se souligne en rose, puis les polaroïds et les stickers se « collent » un à un avec un effet de tampon. Sur ordinateur, on peut attraper et lancer chaque élément. Au défilement, ils s'envolent à des vitesses différentes.</p>
+    <p>Autres effets : rubans croisés qui défilent, planche de stickers à déplacer, tarifs en tickets d'entrée, pile de photos à faire glisser comme sur une appli (au doigt sur mobile), badge WhatsApp qui tourne. Le ton est celui de TikTok, le canal principal de la résidence.</p>
+  </div>
+</section>
+
+<footer class="pied">
+  <a href="#" class="logo" aria-label="Perfect Résidence" style="color:var(--jaune)">
+    <svg viewBox="0 0 120 56" aria-hidden="true"><use href="#toit"/></svg>
+    <span class="logo__txt" style="color:var(--creme)"><span class="logo__nom">Perfect</span><span class="logo__sous">Résidence</span></span>
+  </a>
+  <div class="pied__liens"><a href="https://wa.me/2250714370032">WhatsApp · 07 14 37 00 32</a><a href="tel:+2250709781306">Appel · 07 09 78 13 06</a><a href="https://www.tiktok.com/@peferctresi">TikTok</a><span>Angré, Cocody · Abidjan</span></div>
+  <p class="pied__digifaz">Proposition de site réalisée par Digifaz</p>
+</footer>
+
+<p class="badge-maquette">Maquette · Piste C · Stickers<a href="index.html">Toutes les pistes</a></p>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/SplitText.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/DrawSVGPlugin.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/Draggable.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/InertiaPlugin.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.3.26/dist/lenis.min.js"></script>
+<script>
+  gsap.registerPlugin(ScrollTrigger, SplitText, DrawSVGPlugin, Draggable, InertiaPlugin);
+  const reduit = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const survol = matchMedia("(hover: hover) and (pointer: fine)").matches;
+
+  if (!reduit) {
+    const lenis = new Lenis({ autoRaf: false, lerp: 0.1 });
+    lenis.on("scroll", ScrollTrigger.update);
+    gsap.ticker.add((t) => lenis.raf(t * 1000));
+    gsap.ticker.lagSmoothing(0);
+  }
+
+  // ---------- Formes en etoile (stickers) ----------
+  document.querySelectorAll(".etoile-forme").forEach((p) => {
+    const n = +p.dataset.branches, r1 = +p.dataset.r1, r2 = +p.dataset.r2;
+    let d = "";
+    for (let i = 0; i < n * 2; i++) {
+      const a = (i / (n * 2)) * Math.PI * 2 - Math.PI / 2, r = i % 2 ? r2 : r1;
+      d += (i ? "L" : "M") + (Math.cos(a) * r).toFixed(1) + " " + (Math.sin(a) * r).toFixed(1);
+    }
+    p.setAttribute("d", d + "Z");
+  });
+
+  // ---------- Codes-barres des tickets ----------
+  document.querySelectorAll(".ticket__code").forEach((c) => {
+    for (let i = 0; i < 34; i++) {
+      const b = document.createElement("i");
+      b.style.width = [2, 3, 5, 2, 4][(i * 7) % 5] + "px";
+      c.appendChild(b);
+    }
+  });
+
+  // ---------- Rubans : boucle infinie ----------
+  document.querySelectorAll(".ruban__piste").forEach((p, i) => {
+    p.innerHTML += p.innerHTML;
+    if (!reduit) gsap.fromTo(p, { xPercent: i ? 0 : -50 }, { xPercent: i ? -50 : 0, duration: 26, ease: "none", repeat: -1 });
+  });
+
+  // Rotation de depart des objets
+  const objetsHero = gsap.utils.toArray(".hero .objet");
+  gsap.utils.toArray(".objet").forEach((o) => gsap.set(o.querySelector(".objet__drag"), { rotation: +o.dataset.r || 0 }));
+
+  // ---------- Intro : lettres qui tombent, stickers qui se collent ----------
+  document.fonts.ready.then(() => {
+    if (reduit) return;
+    const split = SplitText.create(".hero__mot", { type: "chars", charsClass: "char" });
+    const tl = gsap.timeline();
+    tl.from(split.chars, {
+      yPercent: -160, rotation: () => gsap.utils.random(-35, 35), opacity: 0,
+      duration: 1.1, ease: "bounce.out", stagger: { each: 0.07, from: "random" }
+    }, 0.1)
+      .from(".hero__residence > span", { clipPath: "inset(0 100% 0 0)", duration: 0.9, ease: "power2.inOut" }, 0.9)
+      .from(".hero__souligne path", { drawSVG: 0, duration: 0.7, ease: "power2.out" }, 1.6)
+      .from(objetsHero.map((o) => o.querySelector(".objet__drag")), {
+        scale: 2.2, opacity: 0, rotation: () => gsap.utils.random(-50, 50),
+        duration: 0.7, ease: "back.out(2.2)", stagger: 0.13
+      }, 1.1)
+      .from(".hero__bas > *", { y: 30, opacity: 0, duration: 0.8, ease: "power3.out", stagger: 0.1 }, 1.5)
+      .from(".confetti", { scale: 0, duration: 0.6, ease: "back.out(3)", stagger: 0.08 }, 1.7);
+    gsap.utils.toArray(".confetti").forEach((c, i) => {
+      gsap.to(c, { y: i % 2 ? 14 : -14, rotation: i % 2 ? 25 : -25, duration: 2.4 + i * 0.3, ease: "sine.inOut", yoyo: true, repeat: -1 });
+    });
+  });
+
+  if (!reduit) {
+    // ---------- Stickers deplacables (ordinateur) ----------
+    if (survol) {
+      let z = 10;
+      gsap.utils.toArray(".objet").forEach((o) => {
+        Draggable.create(o.querySelector(".objet__drag"), {
+          type: "x,y", inertia: true, bounds: o.closest(".hero, .planche-stickers"), edgeResistance: 0.7,
+          onPress() { o.style.zIndex = ++z; gsap.to(this.target, { scale: 1.06, duration: 0.25 }); },
+          onRelease() { gsap.to(this.target, { scale: 1, duration: 0.5, ease: "back.out(3)" }); }
+        });
+      });
+    }
+
+    // ---------- Les objets du hero s'envolent au scroll ----------
+    objetsHero.forEach((o) => {
+      gsap.to(o, { yPercent: +o.dataset.vitesse * 3, ease: "none", scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: true } });
+    });
+    gsap.to(".hero__titre", { yPercent: 35, ease: "none", scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: true } });
+
+    // ---------- Planche de stickers : effet tampon ----------
+    gsap.from(".planche-stickers .objet__drag", {
+      scale: 2, opacity: 0, rotation: () => gsap.utils.random(-40, 40), duration: 0.6, ease: "back.out(2)",
+      stagger: 0.12, scrollTrigger: { trigger: ".planche-stickers", start: "top 70%" }
+    });
+
+    // ---------- Tickets ----------
+    gsap.set(".ticket", { rotation: (i) => (i ? 2.5 : -2) });
+    gsap.from(".ticket", { x: (i) => (i ? 300 : -300), rotation: (i) => (i ? 12 : -12), opacity: 0, duration: 1.1, ease: "back.out(1.4)", stagger: 0.15, scrollTrigger: { trigger: ".tickets", start: "top 80%" } });
+    gsap.from(".tarifs__long", { scale: 0, rotation: -120, duration: 0.9, ease: "back.out(2)", scrollTrigger: { trigger: ".tarifs", start: "top 50%" } });
+    gsap.to(".tarifs__long svg", { rotation: 360, duration: 30, ease: "none", repeat: -1 });
+  }
+
+  // ---------- Pile de photos a faire glisser ----------
+  const pile = document.querySelector(".pile");
+  const cartes = () => gsap.utils.toArray(".pile .carte");
+  function ranger(anim) {
+    const liste = cartes(), n = liste.length;
+    liste.forEach((c, i) => {
+      const rang = n - 1 - i; // 0 = carte du dessus
+      gsap.to(c, { x: 0, y: rang * 8, rotation: [0, -4, 5, -7][rang] || 0, scale: 1 - rang * 0.03, duration: anim ? 0.6 : 0, ease: "back.out(1.6)" });
+    });
+  }
+  ranger(false);
+  let occupee = false;
+  function jeter(carte, sens) {
+    if (occupee) return;
+    occupee = true;
+    gsap.to(carte, {
+      x: sens * innerWidth * 0.6, rotation: sens * 30, duration: 0.45, ease: "power2.in",
+      onComplete: () => { pile.prepend(carte); gsap.set(carte, { x: 0 }); ranger(true); occupee = false; activerDessus(); }
+    });
+  }
+  let dragActif;
+  function activerDessus() {
+    if (dragActif) dragActif.kill();
+    const dessus = cartes().at(-1);
+    dragActif = Draggable.create(dessus, {
+      type: "x", allowNativeTouchScrolling: true,
+      onDrag() { gsap.set(this.target, { rotation: this.x / 12 }); },
+      onDragEnd() { Math.abs(this.x) > 90 ? jeter(this.target, Math.sign(this.x)) : ranger(true); }
+    })[0];
+  }
+  activerDessus();
+  document.querySelector(".pile__btn").addEventListener("click", () => jeter(cartes().at(-1), 1));
+</script>
+</body>
+</html>

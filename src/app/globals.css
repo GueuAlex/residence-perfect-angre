@@ -1,0 +1,94 @@
+@import "tailwindcss";
+
+/* Tokens du theme - piste A "Mosaique" */
+@theme {
+  --color-creme: #f5efe4;
+  --color-papier: #fffbf4;
+  --color-encre: #151412;
+  --color-soleil: #ebb329;
+  --color-corail: #e04a2f;
+  --color-cobalt: #2550c0;
+  --color-rose: #f3c5b5;
+
+  --ease-net: cubic-bezier(0.76, 0, 0.24, 1);
+  --ease-sortie: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@theme inline {
+  --font-display: var(--font-unbounded), system-ui, sans-serif;
+  --font-texte: var(--font-onest), system-ui, sans-serif;
+}
+
+/* Marge laterale commune a toutes les sections */
+@utility gouttiere {
+  padding-inline: clamp(16px, 4vw, 56px);
+}
+
+@layer base {
+  html {
+    background: var(--color-creme);
+  }
+  body {
+    background: var(--color-creme);
+    color: var(--color-encre);
+    font-family: var(--font-texte);
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  ::selection {
+    background: var(--color-soleil);
+    color: var(--color-encre);
+  }
+  :focus-visible {
+    outline: 3px solid var(--color-corail);
+    outline-offset: 3px;
+  }
+}
+
+@layer components {
+  .eyebrow {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+
+  /* Titres en capitales serrees (Unbounded) */
+  .titre-section {
+    font-family: var(--font-display);
+    font-weight: 650;
+    text-transform: uppercase;
+    line-height: 1;
+    letter-spacing: -0.035em;
+  }
+
+  /* "o" remplace par un soleil plein */
+  .o-soleil {
+    position: relative;
+    display: inline-block;
+    color: transparent;
+  }
+  .o-soleil::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 0.74em;
+    height: 0.74em;
+    border-radius: 50%;
+    background: var(--color-soleil);
+    transform: translate(-50%, -46%);
+  }
+}
+
+/* Lenis */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-stopped {
+  overflow: clip;
+}
